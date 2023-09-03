@@ -1,0 +1,35 @@
+.works {
+  border-bottom: 1px solid #424242;
+  padding-bottom: 19px;
+  padding-top: 20px;
+  list-style: none;
+}
+
+.works:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.works:first-child {
+  padding-top: 0;
+}
+
+.works__url {
+  color: #FFF;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: -1.2px;
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+  align-items: center;
+}
+
+@media (max-width: 320px) {
+  .works__url {
+    font-size: 18px;
+  }
+}

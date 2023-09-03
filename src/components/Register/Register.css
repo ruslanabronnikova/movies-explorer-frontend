@@ -1,0 +1,76 @@
+.log {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 70px;
+  background-color: #202020;
+}
+
+.log__logo {
+  margin: 0;
+  margin-bottom: 40px;
+}
+
+.log__title {
+  color: #FFF;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+  margin-bottom: 40px;
+}
+
+.log__form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.log__input {
+  border: none;
+  border-bottom: 1px solid #CCCCCC;
+  box-sizing: border-box;
+  background: transparent;
+  font-size: 14px;
+  padding-bottom: 10px;
+  outline: none;
+  margin: 0;
+  margin-bottom: 30px;
+  max-width: 358px;
+  width: 358px;
+  font-weight: 400;
+  line-height: 17px;
+  color: white;
+}
+
+.log__button-form {
+  border-radius: 3px;
+  background: #4285F4;
+  padding: 15px 125px;
+  border: none;
+  color: #FFF;
+  margin-top: 134px;
+}
+
+.log__link {
+  color: #8B8B8B;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.logo__link-signin {
+  color: #4285F4;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

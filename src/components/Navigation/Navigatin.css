@@ -1,0 +1,21 @@
+.navigation {
+  margin: 0;
+  display: flex;
+}
+
+.navigation__container {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  list-style: none;
+}
+
+.navigation__name {
+  color: #FFF;
+  text-align: right;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+}

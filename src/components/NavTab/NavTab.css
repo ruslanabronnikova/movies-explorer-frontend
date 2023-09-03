@@ -1,0 +1,40 @@
+.navtab {
+  margin: 0 auto;
+  max-width: 308px;
+}
+
+.navtab__container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 151px;
+}
+
+.navtab__btn {
+  width: 96px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #303030;
+}
+
+.navtab__url {
+  text-decoration: none;
+  cursor: pointer;
+  
+}
+
+.navtab__name {
+  color: #FFF;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 10px;
+}

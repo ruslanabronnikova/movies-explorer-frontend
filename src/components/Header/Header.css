@@ -1,0 +1,53 @@
+.header {
+  max-width: calc(100% - 140px);
+  margin: 0 auto;
+  padding-top: 18px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__btns-log {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.header__register-button {
+  color: #FFF;
+  text-align: right;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  background-color: transparent;
+  border: 0;
+}
+
+.header__login-button {
+  color: #000;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  border-radius: 3px;
+  background: #3DDC84;
+  border: 0;
+  padding: 8px 20px;
+}
+
+.header__account-button {
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  border-radius: 20px;
+  background: #313131;
+  padding: 8px 20px;
+  border: 0;
+}
