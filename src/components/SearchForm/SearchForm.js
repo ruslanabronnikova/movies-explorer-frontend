@@ -6,10 +6,12 @@ import './SearchForm.css';
 const SearchFrom = () => {
   return (
     <section className="search">
-      <form className="search-form">
-        <input className="search-input" type="text" id="search-input" placeholder="Фильм" />
+      <form className="search__form">
+        <input className="search__input" type="text" id="search-input" placeholder="Фильм" />
+        <button className="search__button"></button>
       </form>
-      <button className="search-button"></button>
+      <div className="search__filters">
+      </div>
     </section>
   )
 }
