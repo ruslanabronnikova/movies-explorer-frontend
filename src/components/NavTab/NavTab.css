@@ -18,8 +18,14 @@
   height: 36px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: #303030;
+  background-color: #303030; 
+  transition: background-color 0.5s ease; 
 }
+
+.navtab__btn:hover {
+  background-color: rgba(255, 255, 255, .2)
+}
+
 
 .navtab__url {
   text-decoration: none;
@@ -37,4 +43,28 @@
   text-decoration: none;
   text-align: center;
   margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .navtab__container {
+    margin-top: 314px;
+  }
+}
+
+@media (max-width: 500px) {
+  .navtab__container {
+    margin-top: 212px;
+    gap: 6px;
+  }
+  
+  .navtab__name {
+    font-size: 10px;
+    margin-top: 5px;
+  }
+
+  .navtab__btn {
+    width: 82px;
+    height: 26px;
+    border-radius: 6px;
+  }
 }

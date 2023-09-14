@@ -86,6 +86,12 @@
   font-weight: 500;
   line-height: normal;
   margin: 0;
+  transition: color 0.5s ease;
+  cursor: pointer;
+}
+
+.aboutme__container-portfolio:hover {
+  color: rgba(255, 255, 255, .5)
 }
 
 .porfolio__title {

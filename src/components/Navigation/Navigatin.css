@@ -8,6 +8,7 @@
   flex-direction: row;
   gap: 16px;
   list-style: none;
+  padding: 0;
 }
 
 .navigation__name {

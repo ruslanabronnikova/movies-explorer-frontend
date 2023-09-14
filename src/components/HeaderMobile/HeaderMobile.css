@@ -1,0 +1,122 @@
+/* Стили для оверлея (overlay) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2); /* Затемнение с 50% прозрачностью */
+  z-index: 0; /* Положите оверлей над всеми другими элементами */
+  display: none; /* Начально скрываем оверлей */
+}
+
+/* Стили для сайдбара (menu) */
+.menu-container {
+  position: fixed;
+  top: 0;
+  right: -520px; /* Ширина сайдбара */
+  width: 520px; /* Ширина сайдбара */
+  height: 100%;
+  background-color: #202020;
+  transition: right 0.3s ease-in-out;
+  z-index: 10; /* Положите сайдбар над оверлеем */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Когда сайдбар открыт (соответствующий класс menu_opened) */
+.menu_opened {
+  right: 0;
+  z-index: 10;
+}
+
+/* Когда сайдбар открыт, показываем оверлей */
+.menu_opened .overlay {
+  display: block;
+}
+
+.menu__btn-close {
+  position: absolute;
+  right: 22px;
+  top: 22px;
+  background-color: transparent;
+  border: none;
+}
+
+.menu__content {
+  margin-top: 159px;
+  align-items: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.menu__url {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.menu__container {
+  list-style: none;
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding: 0;
+  margin: 0;
+}
+
+.menu__name {
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 28px;
+  text-decoration: none;
+}
+
+.menu__name:last-child{
+  margin-bottom: 0;
+}
+
+.menu__btn-account {
+  position: absolute;
+  bottom: 90px;
+  text-align: center;
+  color: #fff;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  border-radius: 20px;
+  background: #313131;
+  padding: 8px 20px;
+  border: 0;
+  max-width: 320px; 
+  margin: 0 auto; 
+  cursor: pointer;
+}
+
+.menu__name_active {
+  text-decoration-color: white;
+  text-decoration: underline;
+  text-underline-offset: 7px;
+}
+
+@media (max-width: 467px) {
+  .menu {
+    width: 320px; /* Максимальная ширина сайдбара */
+  }
+
+  .menu__name {
+    margin-bottom: 24px;
+  }
+}
