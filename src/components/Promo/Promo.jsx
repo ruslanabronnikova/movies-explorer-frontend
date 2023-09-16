@@ -4,7 +4,7 @@ import NavTab from "../NavTab/NavTab";
 
 const Promo = () => {
   return (
-    <section className={"promo promo__main"}>
+    <section className={"promo__main"}>
       <h1 className={"promo__title"}>
         Учебный проект студента факультета Веб-разработки.
       </h1>

@@ -33,7 +33,7 @@
 }
 
 .filter-switch__input:checked + .filter-switch__slider {
-  background-color: #4caf50; 
+  background-color: #4caf50;
 }
 
 .filter-switch__input:checked + .filter-switch__slider:before {
@@ -43,5 +43,19 @@
 .filter-switch__label {
   font-size: 12px;
   margin: 0;
-  margin-left: 12px;
+  margin-left: 14px;
+}
+
+@media (max-width: 360px) {
+  .filter-switch__label {
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    margin-left: 13px;
+  }
+
+  .filter-switch__slider {
+    width: 36px;
+  }
 }

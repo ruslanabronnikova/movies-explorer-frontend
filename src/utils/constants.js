@@ -6,14 +6,17 @@ export const works = [
   {
     id: 1,
     title: "Статичный сайт",
+    url: "https://github.com/ruslanabronnikova/how-to-learn"
   },
   {
     id: 2,
     title: "Адаптивный сайт",
+    url: "https://github.com/ruslanabronnikova/russian-travel"
   },
   {
     id: 3,
     title: "Одностраничное приложение",
+    url: "https://github.com/ruslanabronnikova/react-mesto-api-full-gha"
   },
 ];
 

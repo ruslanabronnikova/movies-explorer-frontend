@@ -7,39 +7,47 @@ const HeaderMobile = ({ isOpen, onClose }) => {
   const location = useLocation();
 
   return (
-    <div className={`menu-container ${isOpen ? "menu_opened" : ""}`}>
-      {isOpen && <div className={"overlay"} onClick={onClose}></div>}
-      <button className={"menu__btn-close"} onClick={onClose}>
+    <div
+      className={`header__menu-container ${
+        isOpen ? "header__menu_opened" : ""
+      }`}
+    >
+      {isOpen && <div className={"header__overlay"} onClick={onClose}></div>}
+      <button className={"header__menu-btn-close"} onClick={onClose}>
         <BtnCloseMenu />
       </button>
-      <div className={"menu__content"}>
-        <nav className={"menu__url"}>
-          <ul className={"menu__container"}>
+      <div className={"header__menu-content"}>
+        <nav className={"header__menu-url"}>
+          <ul className={"header__menu-links"}>
             <li
-              className={`menu__name ${
-                location.pathname === "/" ? "menu__name_active" : ""
+              className={`header__menu-name ${
+                location.pathname === "/" ? "header__menu-name_active" : ""
               }`}
             >
               <Link to="/">Главная </Link>
             </li>
             <li
-              className={`menu__name ${
-                location.pathname === "/movies" ? "menu__name_active" : ""
+              className={`header__menu-name ${
+                location.pathname === "/movies"
+                  ? "header__menu-name_active"
+                  : ""
               }`}
             >
               <Link to="/movies">Фильмы</Link>
             </li>
             <li
-              className={`menu__name ${
-                location.pathname === "/saved-movies" ? "menu__name_active" : ""
+              className={`header__menu-name ${
+                location.pathname === "/saved-movies"
+                  ? "header__menu-name_active"
+                  : ""
               }`}
             >
               <Link to="/saved-movies">Сохранённые фильмы</Link>
             </li>
           </ul>
         </nav>
-        <Link to="/profile">
-          <button className={"menu__btn-account"}>Аккаунт</button>
+        <Link to="/profile" className={"header__menu-link-account"}>
+          <button className={"header__menu-btn-account"}>Аккаунт</button>
         </Link>
       </div>
     </div>

@@ -12,7 +12,7 @@
 }
 
 .movie-card__content {
-  padding: 10px;
+  padding: 14px;
   padding-bottom: 0;
   display: flex;
   justify-content: space-between;
@@ -20,7 +20,7 @@
 }
 
 .movie-card__title {
-  color: #FFF;
+  color: #fff;
   font-family: Inter;
   font-size: 13px;
   font-style: normal;
@@ -33,9 +33,9 @@
   padding: 3px 4px;
   width: 44px;
   border-radius: 3px;
-  background: #2F2F2F;
+  background: #2f2f2f;
   text-align: center;
-  color: #8B8B8B;
+  color: #8b8b8b;
   font-family: Inter;
   font-size: 11px;
   font-style: normal;
@@ -55,11 +55,14 @@
 
 .movie-card__save-button {
   border-radius: 30px;
-  background-color:#313131;
-  padding: 6px 7px;
+  background-color: #313131;
+  padding: 6px 9px;
   border: none;
   color: white;
   font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 9px;
 }
 
 .movie-card__saved-checkmark {
@@ -71,10 +74,18 @@
   .movie-card {
     max-width: 339px;
   }
+
+  .movie-card__content {
+    padding: 25px 0 0 0;
+  }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 500px) {  
   .movie-card__title {
     font-size: 12px;
+  }
+
+  .movie-card__content {
+    padding: 16px 0 0 0;
   }
 }

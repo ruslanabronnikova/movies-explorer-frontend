@@ -29,10 +29,10 @@ const AboutMe = () => {
         </div>
         <img className={"aboutme__container-photo"} src={imgStudent} alt="Фото студента" />
       </div>
-      <h4 className={"portfolio__title"}>
+      <h4 className={"aboutme__portfolio-title"}>
         Портфолио
       </h4>
-      <ul className={"portfolio__works"}>
+      <ul className={"aboutme__portfolio-works"}>
         {works.map((work) => (
           <Portfolio key={work.id} {...work} />
         ))}

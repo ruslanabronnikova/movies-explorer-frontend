@@ -11,7 +11,7 @@
 }
 
 .project__title {
-  color: #FFF;
+  color: #fff;
   font-family: Inter;
   font-size: 22px;
   font-style: normal;
@@ -28,13 +28,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 40px;
+  gap: 50px;
 }
 
 .project__about {
   display: flex;
   flex-direction: column;
-  color: #FFF;
+  color: #fff;
 }
 
 .project__about-title {
@@ -64,7 +64,7 @@
 }
 
 .project__time-back {
-  flex: 1;
+  flex: 2;
 }
 
 .project__time-front {
@@ -80,17 +80,17 @@
   font-weight: 400;
   line-height: normal;
   padding: 9px 14px;
-  background-color: #3DDC84;
+  background-color: #3ddc84;
   margin: 0;
 }
 
 .project__time-title_type_ligth {
   background-color: #303030;
-  color: #FFF;
+  color: #fff;
 }
 
 .project__time-subtitle {
-  color: #8B8B8B;
+  color: #8b8b8b;
   text-align: center;
   font-family: Inter;
   font-size: 14px;
@@ -106,27 +106,52 @@
     padding-top: 90px;
     padding-left: 50px;
     padding-right: 50px;
+    padding-bottom: 90px;
+  }
+
+  .project__container-about {
+    gap: 36px;
   }
 
   .project__about-title {
     margin-bottom: 22px;
   }
 
+  .project__about-subtitle {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
   .project__time-back {
-    flex: 2;
+    flex: 3;
+  }
+
+  .project__time-front {
+    flex: 11.3;
   }
 
   .project__time-title {
     padding: 9px 10px;
   }
+
+  .project__container-time {
+    margin-top: 94px;
+  }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 500px) {
   .project {
     padding-top: 70px;
-    padding-bottom: 70px;
+    padding-bottom: 69px;
     padding-left: 18px;
     padding-right: 18px;
+  }
+
+  .project__title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    padding-bottom: 28px;
+    margin-bottom: 60px;
   }
 
   .project__about-title {
@@ -136,20 +161,31 @@
 
   .project__about-subtitle {
     font-size: 11px;
+    line-height: 16px;
   }
 
   .project__container-about {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 56px;
+  }
+
+  .project__container-time {
+    margin-top: 60px;
   }
 
   .project__time-back {
-    flex: 5;
+    flex: 6.2;
   }
 
   .project__time-title {
-    padding: 9px 10px;
+    padding: 11px 10px;
+    font-size: 11px;
+  }
+
+  .project__time-subtitle {
+    font-size: 11px;
+    margin-top: 8px;
   }
 }

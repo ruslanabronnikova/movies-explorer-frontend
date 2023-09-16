@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-bottom: 60px;
   padding-left: 70px;
   padding-right: 70px;
   padding-top: 100px;
@@ -12,7 +11,7 @@
 }
 
 .techs__title {
-  color: #FFF;
+  color: #fff;
   font-family: Inter;
   font-size: 22px;
   font-style: normal;
@@ -27,7 +26,7 @@
 .techs__title-page {
   margin: 0 auto;
   margin-top: 90px;
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-family: Inter;
   font-size: 50px;
@@ -38,7 +37,7 @@
 }
 
 .techs__subttile {
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-family: Inter;
   font-size: 14px;
@@ -57,7 +56,9 @@
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit,90px);
+  grid-template-columns: repeat(auto-fit, 90px);
+  margin: 0;
+  margin-top: 100px;
 }
 
 .techs__name {
@@ -69,7 +70,7 @@
 }
 
 .techs__name-title {
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-family: Inter;
   font-size: 14px;
@@ -99,10 +100,32 @@
   .techs__container {
     padding: 0;
   }
-  
+
+  .techs__title-page {
+    margin-top: 80px;
+  }
+
+  .techs__subttile {
+    font-size: 12px;
+    margin-top: 22px;
+    max-width: 450px;
+    line-height: 18px;
+    letter-spacing: -0.48px;
+  }
+
+  .techs__container {
+    grid-template-columns: repeat(auto-fit, 84px);
+    margin-top: 83px;
+  }
+
+  .techs__name-title {
+    font-size: 12px;
+    letter-spacing: -0.48px;
+    margin-top: 21px;
+  }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 500px) {
   .techs {
     padding-left: 18px;
     padding-right: 18px;
@@ -110,12 +133,24 @@
     padding-bottom: 70px;
   }
 
+  .techs__title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    padding-bottom: 28px;
+  }
+
   .techs__title-page {
     font-size: 30px;
+    letter-spacing: -1.2px;
+    margin-top: 60px;
+    line-height: normal;
   }
 
   .techs__subttile {
     font-size: 11px;
+    line-height: 16px;
+    letter-spacing: -0.44px;
+    margin-top: 24px;
   }
 
   .techs__name {
@@ -131,5 +166,4 @@
     margin: 0 auto;
     margin-top: 50px;
   }
-  
 }

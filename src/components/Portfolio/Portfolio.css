@@ -15,7 +15,7 @@
 }
 
 .works__url {
-  color: #FFF;
+  color: #fff;
   font-family: Inter;
   font-size: 30px;
   font-style: normal;
@@ -27,25 +27,46 @@
   text-decoration: none;
   align-items: center;
   transition: color 0.5s ease;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
-.works__url:hover{
-  color: rgba(255, 255, 255, .5)
+.works__url:hover {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .works__arrow {
-  width: 25px;
-  height: 25px;
+  color: #fff;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -1.2px;
+  margin: 0;
 }
 
-@media (max-width: 320px) {
+@media (max-width: 768px) {
   .works__url {
-    font-size: 18px;
+    font-size: 28px;
+    line-height: 50px; /* 178.571% */
+    letter-spacing: -1.12px;
   }
 
   .works__arrow {
-    width: 18px;
-    height: 18px;
+    font-size: 28px;
+    letter-spacing: -1.12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .works__url {
+    font-size: 18px;
+    line-height: 28px; /* 155.556% */
+    letter-spacing: -0.72px;
+  }
+
+  .works__arrow {
+    font-size: 18px;
+    line-height: 28px; /* 155.556% */
+    letter-spacing: -0.72px;
   }
 }

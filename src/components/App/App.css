@@ -1,4 +1,4 @@
-.page {
+.promo {
   background-color: #202020;
   width: 100%;
   margin: 0 auto;
@@ -11,6 +11,8 @@
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 a {

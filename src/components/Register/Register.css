@@ -10,11 +10,11 @@
 
 .log__logo {
   margin: 0;
-  margin-bottom: 40px;
+  margin-bottom: 37px;
 }
 
 .log__title {
-  color: #FFF;
+  color: #fff;
   font-family: Inter;
   font-size: 24px;
   font-style: normal;
@@ -32,7 +32,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-bottom: 69px;
+  padding-bottom: 85px;
 }
 
 .log__input-container {
@@ -46,7 +46,7 @@
 }
 
 .log__label {
-  color: #8B8B8B;
+  color: #8b8b8b;
   font-family: Inter;
   font-size: 10px;
   font-style: normal;
@@ -67,36 +67,60 @@
   font-weight: 400;
   line-height: 17px;
   color: white;
-  background-color: #2F2F2F;
+  background-color: #2f2f2f;
 }
 
 .log__button-form {
   border-radius: 3px;
-  background-color: #4285F4;
+  background-color: #4285f4;
   padding: 15px;
   width: 396px;
   border: none;
-  color: #FFF;
+  color: #fff;
   cursor: pointer;
   transition: background-color 0.5s ease;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.log__button-signin {
+  border-radius: 3px;
+  background-color: #4285f4;
+  padding: 15px;
+  width: 396px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 89px;
 }
 
 .log__button-form:hover {
-  background-color: rgba(66, 133, 244, 0.8) ;
+  background-color: rgba(66, 133, 244, 0.8);
 }
 
 .log__link {
-  color: #8B8B8B;
+  color: #8b8b8b;
   text-align: center;
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  margin: 0;
+  margin-top: 16px;
 }
 
 .logo__link-signin {
-  color: #4285F4;
+  color: #4285f4;
   text-align: center;
   font-family: Inter;
   font-size: 14px;
@@ -119,7 +143,7 @@
   }
 
   .log__form {
-    padding-bottom: 157px;
+    padding-bottom: 175px;
     width: 260px;
     margin: 0 auto;
   }
@@ -133,6 +157,7 @@
 
   .log__title {
     text-align: center;
+    margin-bottom: 80px;
   }
 
   .log__input {
@@ -145,7 +170,16 @@
     font-size: 12px;
   }
 
+  .log__button-signin {
+    width: 260px;
+    font-size: 12px;
+  }
+
   .log__link {
     font-size: 12px;
   }
+
+  .logo__link-signin {
+    font-size: 12px;
+}
 }

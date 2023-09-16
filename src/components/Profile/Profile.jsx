@@ -1,6 +1,7 @@
 import React from "react";
 import "./Profile.css";
 import Header from "../Header/Header";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const [name, setName] = React.useState("Виталий");
@@ -35,7 +36,7 @@ const Profile = () => {
             )}
           </div>
           <div className={"prof__text-container"}>
-            <p className={"prof__name"}>Email</p>
+            <p className={"prof__name"}>E-mail</p>
             {isEditing ? (
               <input
                 className={"prof__input"}
@@ -67,7 +68,7 @@ const Profile = () => {
             </button>
           )}
           <button type="submit" className={"prof__button"}>
-            Выйти из аккаунта
+            <Link to="/">Выйти из аккаунта</Link>
           </button>
         </div>
       </section>

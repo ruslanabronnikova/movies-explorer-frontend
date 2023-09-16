@@ -1,8 +1,7 @@
 .header {
-  max-width: calc(100% - 140px);
-  margin: 0 auto;
+  padding-left: 70px;
+  padding-right: 70px;
   padding-top: 18px;
-  padding-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,7 +14,7 @@
 }
 
 .header__register-button {
-  color: #FFF;
+  color: #fff;
   text-align: right;
   font-family: Inter;
   font-size: 12px;
@@ -25,6 +24,7 @@
   background-color: transparent;
   border: 0;
   cursor: pointer;
+  padding: 0;
 }
 
 .header__login-button {
@@ -35,14 +35,14 @@
   font-weight: 500;
   line-height: 16px;
   border-radius: 3px;
-  background: #3DDC84;
+  background: #3ddc84;
   border: 0;
   padding: 8px 20px;
   cursor: pointer;
 }
 
 .header__account-button {
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-family: Inter;
   font-size: 14px;
@@ -63,7 +63,6 @@
 
 .header__btn-open {
   display: none;
-  
 }
 
 @media (max-width: 768px) {
@@ -79,12 +78,32 @@
     display: block;
     background-color: transparent;
     border: none;
+    padding: 0;
   }
 
   .header {
-    max-width: calc(100% - 60px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media (max-width: 360px) {
+  .header {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .header__btns-log {
+    gap: 14px;
+  }
+
+  .header__register-button {
+    font-size: 10px;
+    line-height: 16px; /* 160% */
+  }
+
+  .header__login-button {
+    font-size: 10px;
+    padding: 5px 12px;
   }
 }

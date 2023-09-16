@@ -12,7 +12,7 @@
 }
 
 .aboutme__title {
-  color: #FFF;
+  color: #fff;
   font-family: Inter;
   font-size: 22px;
   font-style: normal;
@@ -33,11 +33,11 @@
 
 .aboutme__container-info {
   max-width: 600px;
-  color: #FFF;
+  color: #fff;
 }
 
 .aboutme__container-title {
-  color: #FFF;
+  color: #fff;
   font-family: Inter;
   font-size: 50px;
   font-style: normal;
@@ -49,8 +49,8 @@
 }
 
 .aboutme__container-work {
-  color: #FFF;
-  font-feature-settings: 'clig' off, 'liga' off;
+  color: #fff;
+  font-feature-settings: "clig" off, "liga" off;
   font-family: Inter;
   font-size: 18px;
   font-style: normal;
@@ -61,8 +61,8 @@
 }
 
 .aboutme__container-text {
-  color: #FFF;
-  font-feature-settings: 'clig' off, 'liga' off;
+  color: #fff;
+  font-feature-settings: "clig" off, "liga" off;
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -79,7 +79,7 @@
 }
 
 .aboutme__container-portfolio {
-  color: #FFF;
+  color: #fff;
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -91,12 +91,12 @@
 }
 
 .aboutme__container-portfolio:hover {
-  color: rgba(255, 255, 255, .5)
+  color: rgba(255, 255, 255, 0.5);
 }
 
-.porfolio__title {
-  color: #8B8B8B;
-  font-feature-settings: 'clig' off, 'liga' off;
+.aboutme__portfolio-title {
+  color: #8b8b8b;
+  font-feature-settings: "clig" off, "liga" off;
   font-family: Inter;
   font-size: 18px;
   font-style: normal;
@@ -106,9 +106,10 @@
   max-width: 600px;
 }
 
-.portfolio__works {
+.aboutme__portfolio-works {
   padding: 0;
   margin-top: 50px;
+  margin-bottom: 0;
 }
 
 @media (max-width: 768px) {
@@ -118,7 +119,11 @@
     padding-top: 90px;
     padding-bottom: 90px;
   }
-  
+
+  .aboutme__container {
+    margin-bottom: 90px;
+  }
+
   .aboutme__container-photo {
     width: 255px;
     height: 307px;
@@ -126,16 +131,23 @@
 
   .aboutme__container-title {
     font-size: 40px;
+    margin: 0;
+    line-height: 40px;
+    margin-bottom: 16px;
   }
 
   .aboutme__container-work {
     font-size: 12px;
     max-width: 348px;
+    margin-bottom: 20px;
   }
 
   .aboutme__container-text {
     font-size: 12px;
     max-width: 350px;
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 102px;
   }
 }
 
@@ -143,10 +155,9 @@
   .aboutme__container {
     flex-direction: column-reverse;
   }
-  
 }
 
-@media (max-width: 320px) {
+@media (max-width: 360px) {
   .aboutme {
     padding-left: 14px;
     padding-right: 14px;
@@ -154,10 +165,22 @@
     padding-bottom: 70px;
   }
 
+  .aboutme__title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    padding-bottom: 28px;
+    margin-bottom: 58px;
+  }
+
   .aboutme__container {
     flex-direction: column-reverse;
+    margin-bottom: 69px;
   }
-  
+
+  .aboutme__container-info {
+    margin-top: 40px;
+  }
+
   .aboutme__container-photo {
     width: 292px;
     height: 352px;
@@ -177,5 +200,15 @@
     font-size: 11px;
     max-width: 292px;
     line-height: 1.5;
+    margin-bottom: 50px;
+  }
+
+  .aboutme__portfolio-title {
+    font-size: 14px;
+    line-height: 20px; /* 142.857% */
+  }
+
+  .aboutme__portfolio-works {
+    margin-top: 40px;
   }
 }

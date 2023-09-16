@@ -30,17 +30,19 @@ const Header = () => {
       <div className={"header__log"}>
         {isAuthenticated ? (
           <Link to="/profile">
-            <button className={"header__account-button"}>Аккаунт</button>
+            <button type="button" className={"header__account-button"}>Аккаунт</button>
           </Link>
         ) : (
-          <div className="header__btns-log">
-            <button className={"header__register-button"}><Link to="/sign-up">Регистрация</Link></button>
-            <button className={"header__login-button"}><Link to="sign-in">Вход</Link></button>
-          </div>
+          <nav className="header__btns-log">
+            <button type="button" className={"header__register-button"}><Link to="/signup">Регистрация</Link></button>
+            <button type="button" className={"header__login-button"}><Link to="/signin">Войти</Link></button>
+          </nav>
         )}
-        <button className={"header__btn-open"} onClick={handleMobileMenuClick}>
-          <BtnOpenMenu />
-        </button>
+        {isAuthenticated ? (
+          <button type="button" className={"header__btn-open"} onClick={handleMobileMenuClick}>
+            <BtnOpenMenu />
+          </button>
+        ) : null}
       </div>
       {isAuthenticated ? (
         <HeaderMobile isOpen={isMobileMenuOpen} onClose={handleMobileMenuClick} />
@@ -50,4 +52,5 @@ const Header = () => {
 };
 
 export default Header;
+
 

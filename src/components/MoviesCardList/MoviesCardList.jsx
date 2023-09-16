@@ -53,7 +53,8 @@ const MoviesCardList = ({ data }) => {
         <Preloader />
       ) : cardsCount < data.length && (
         <div className={"movie-card-container__load-more"}>
-          <button
+          <button 
+            type="button"
             className={"movie-card-container__btn-more"}
             onClick={handleLoadMoreClick}
           >

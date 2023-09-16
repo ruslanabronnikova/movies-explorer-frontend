@@ -19,7 +19,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="page">
+    <section className="promo">
       {isLoading ? (
         <Preloader />
       ) : (
@@ -29,11 +29,11 @@ const App = () => {
           <Route path={'/saved-movies'} element={<SavedMovies />} />
           <Route path={'/profile'} element={<Profile />} />
           <Route path={'*'} element={<NotFound />} />
-          <Route path={'/sign-in'} element={<Login />} />
-          <Route path={'/sign-up'} element={<Register />} />
+          <Route path={'/signin'} element={<Login />} />
+          <Route path={'/signup'} element={<Register />} />
         </Routes>
       )}
-    </div>
+    </section>
   )
 }
 
