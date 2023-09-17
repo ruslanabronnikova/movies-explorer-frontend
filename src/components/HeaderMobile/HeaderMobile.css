@@ -1,0 +1,123 @@
+/* Стили для оверлея (overlay) */
+.header__overlay {
+  position: fixed;
+  top: 0;
+  right: 520px; /* Ширина сайдбара */
+  width: calc(100% - 520px); /* Вычитаем ширину сайдбара из 100% */
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  transition: left 0.3s ease-in-out;
+  display: none;
+}
+
+.header__menu-container {
+  position: fixed;
+  top: 0;
+  right: -520px;
+  width: 520px; 
+  height: 100%;
+  background-color: #202020;
+  transition: left 0.3s ease-in-out;
+  z-index: 10; 
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.header__menu_opened {
+  right: 0;
+  z-index: 10;
+}
+
+.header__menu_opened .header__overlay {
+  left: 0px;
+  display: block;
+}
+
+.header__menu-btn-close {
+  position: absolute;
+  right: 22px;
+  top: 22px;
+  background-color: transparent;
+  border: none;
+}
+
+.header__menu-content {
+  margin-top: 159px;
+  align-items: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.header__menu-url {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.header__menu-links {
+  list-style: none;
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding: 0;
+  margin: 0;
+}
+
+.header__menu-name {
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 28px;
+  text-decoration: none;
+}
+
+.header__menu-name:last-child{
+  margin-bottom: 0;
+}
+
+.header__menu-btn-account {
+  text-align: center;
+  color: #fff;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  border-radius: 20px;
+  background: #313131;
+  padding: 8px 20px;
+  border: 0;
+}
+
+.header__menu-link-account {
+  position: absolute;
+  bottom: 90px;
+  max-width: 320px; 
+  margin: 0 auto; 
+}
+
+.header__menu-name_active {
+  text-decoration-color: white;
+  text-decoration: underline;
+  text-underline-offset: 7px;
+}
+
+@media (max-width: 467px) {
+  .header__menu-container {
+    width: 320px; /* Максимальная ширина сайдбара */
+  }
+
+  .header__menu-name {
+    margin-bottom: 24px;
+  }
+}

@@ -1,0 +1,140 @@
+.prof {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding-top: 89px;
+  padding-bottom: 70px;
+  background-color: #202020;
+}
+
+.prof__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.prof__title {
+  color: #fff;
+  text-align: center;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+}
+
+.prof__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 123px;
+}
+
+.prof__text-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #424242;
+  width: 410px;
+}
+
+.prof__text-container:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+  padding-top: 16px;
+}
+
+.prof__name {
+  margin: 0;
+  color: #fff;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.prof__btns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 220px;
+}
+
+@media (max-width: 768px) {
+  .prof {
+    padding-top: 243px;
+    padding-bottom: 269px;
+  }
+
+  .prof__btns {
+    margin-top: 210px;
+  }
+
+  .prof__form {
+    margin-top: 98px;
+  }
+
+  .prof__text-container {
+    width: 408px;
+  }
+}
+
+@media (max-width: 460px) {
+  .prof {
+    padding-top: 77px;
+    padding-bottom: 40px;
+  }
+
+  .prof__form {
+    margin-top: 81px;
+  }
+
+  .prof__btns {
+    margin-top: 379px;
+  }
+
+  .prof__text-container {
+    width: 260px;
+  }
+
+  .prof__button {
+    font-size: 12px;
+  }
+}
+
+
+
+.prof__button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.prof__button:last-child {
+  color: #ee3465;
+  margin-bottom: 0;
+}
+
+.prof__input {
+  text-align: right;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: 1px solid #424242;
+  border-radius: 2px;
+  background-color: transparent;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
