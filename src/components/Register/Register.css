@@ -119,7 +119,7 @@
   margin-top: 16px;
 }
 
-.logo__link-signin {
+.log__link-signin {
   color: #4285f4;
   text-align: center;
   font-family: Inter;
@@ -179,7 +179,7 @@
     font-size: 12px;
   }
 
-  .logo__link-signin {
+  .log__link-signin {
     font-size: 12px;
 }
 }

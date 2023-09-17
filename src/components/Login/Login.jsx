@@ -21,12 +21,13 @@ const Login = () => {
               </label>
               <input
                 type={"text"}
-                className={"log__input from__input_email_value"}
+                className={"log__input"}
                 name={"email"}
                 id={"emailser"}
                 minLength={"2"}
                 maxLength={"40"}
                 required
+                placeholder="E-mail"
               />
             </div>
             <div className={"log__input-container"}>
@@ -35,12 +36,13 @@ const Login = () => {
               </label>
               <input
                 type={"password"}
-                className={"log__input from__i nput_password_value"}
+                className={"log__input"}
                 name={"password"}
                 id={"passwordUser"}
                 minLength={"2"}
                 maxLength={"40"}
                 required
+                placeholder="Пароль"
               />
             </div>
           </form>
@@ -50,9 +52,8 @@ const Login = () => {
 
           <p className={"log__link"} to="/sign-in">
             Ещё не зарегистрированы?
-            <span className={"logo__link-signin"}>
-              {" "}
-              <Link to="/sign-up">Регистрация</Link>{" "}
+            <span className={"log__link-signin"}>
+              <Link to="/signup"> Регистрация</Link>{" "}
             </span>
           </p>
         </div>

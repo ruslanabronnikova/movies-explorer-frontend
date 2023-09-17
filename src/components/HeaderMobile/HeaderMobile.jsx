@@ -13,7 +13,7 @@ const HeaderMobile = ({ isOpen, onClose }) => {
       }`}
     >
       {isOpen && <div className={"header__overlay"} onClick={onClose}></div>}
-      <button className={"header__menu-btn-close"} onClick={onClose}>
+      <button type="button" className={"header__menu-btn-close"} onClick={onClose}>
         <BtnCloseMenu />
       </button>
       <div className={"header__menu-content"}>
@@ -47,7 +47,7 @@ const HeaderMobile = ({ isOpen, onClose }) => {
           </ul>
         </nav>
         <Link to="/profile" className={"header__menu-link-account"}>
-          <button className={"header__menu-btn-account"}>Аккаунт</button>
+          <button type="button" className={"header__menu-btn-account"}>Аккаунт</button>
         </Link>
       </div>
     </div>

@@ -19,59 +19,61 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <section className={"prof"}>
-        <h1 className={"prof__title"}>Привет, {name}!</h1>
-        <form className={"prof__form"} id="profileform" method="post">
-          <div className={"prof__text-container"}>
-            <p className={"prof__name"}>Имя</p>
+      <main>
+        <section className={"prof"}>
+          <h1 className={"prof__title"}>Привет, {name}!</h1>
+          <form className={"prof__form"} id="profileform" method="post">
+            <div className={"prof__text-container"}>
+              <p className={"prof__name"}>Имя</p>
+              {isEditing ? (
+                <input
+                  className={"prof__input"}
+                  type="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              ) : (
+                <p className={"prof__name"}>{name}</p>
+              )}
+            </div>
+            <div className={"prof__text-container"}>
+              <p className={"prof__name"}>E-mail</p>
+              {isEditing ? (
+                <input
+                  className={"prof__input"}
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              ) : (
+                <p className={"prof__name"}>{email}</p>
+              )}
+            </div>
+          </form>
+          <div className={"prof__btns"}>
             {isEditing ? (
-              <input
-                className={"prof__input"}
-                type="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
+              <button
+                type="button"
+                className={"prof__button"}
+                onClick={handleSaveClick}
+              >
+                Сохранить
+              </button>
             ) : (
-              <p className={"prof__name"}>{name}</p>
+              <button
+                type="button"
+                className={"prof__button"}
+                onClick={handleEditClick}
+              >
+                Редактировать
+              </button>
             )}
-          </div>
-          <div className={"prof__text-container"}>
-            <p className={"prof__name"}>E-mail</p>
-            {isEditing ? (
-              <input
-                className={"prof__input"}
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            ) : (
-              <p className={"prof__name"}>{email}</p>
-            )}
-          </div>
-        </form>
-        <div className={"prof__btns"}>
-          {isEditing ? (
-            <button
-              type="button"
-              className={"prof__button"}
-              onClick={handleSaveClick}
-            >
-              Сохранить
+            <button type="submit" className={"prof__button"}>
+              <Link to="/">Выйти из аккаунта</Link>
             </button>
-          ) : (
-            <button
-              type="button"
-              className={"prof__button"}
-              onClick={handleEditClick}
-            >
-              Редактировать
-            </button>
-          )}
-          <button type="submit" className={"prof__button"}>
-            <Link to="/">Выйти из аккаунта</Link>
-          </button>
-        </div>
-      </section>
+          </div>
+        </section>
+      </main>
     </>
   );
 };

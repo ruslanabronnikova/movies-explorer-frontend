@@ -21,12 +21,13 @@ const Register = () => {
               </label>
               <input
                 type="text"
-                className={"log__input from__input_email_value"}
+                className={"log__input"}
                 name="name"
                 id="nameUser"
                 minLength="2"
                 maxLength="40"
                 required
+                placeholder="Имя"
               />
             </div>
             <div className={"log__input-container"}>
@@ -35,12 +36,13 @@ const Register = () => {
               </label>
               <input
                 type="email"
-                className={"log__input from__input_email_value"}
+                className={"log__input"}
                 name="email"
                 id="emailUser"
                 minLength="2"
                 maxLength="40"
                 required
+                placeholder="Email"
               />
             </div>
             <div className={"log__input-container"}>
@@ -49,12 +51,13 @@ const Register = () => {
               </label>
               <input
                 type="password"
-                className={"log__input from__input_password_value"}
+                className={"log__input"}
                 name="password"
                 id="passwordUser"
                 minLength="2"
                 maxLength="40"
                 required
+                placeholder="Пароль"
               />
             </div>
           </form>
@@ -64,8 +67,8 @@ const Register = () => {
 
           <p className={"log__link"} to="/sign-in">
             Уже зарегистрированы?
-            <span className={"logo__link-signin"}>
-              <Link to="/sign-in">Войти</Link>
+            <span className={"log__link-signin"}>
+              <Link to="/signin"> Войти</Link>
             </span>
           </p>
         </div>

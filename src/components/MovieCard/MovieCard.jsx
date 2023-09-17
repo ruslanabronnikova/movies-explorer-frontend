@@ -7,7 +7,7 @@ const MovieCard = ({ imageUrl, title, duration, isSaved }) => {
     <li className={"movie-card"}>
       <div className={"movie-card__saved-flag"}>
         {!isSaved ? (
-          <button className={"movie-card__save-button"}>Сохранить</button>
+          <button type="button" className={"movie-card__save-button"}>Сохранить</button>
         ) : (
           <span className={"movie-card__saved-checkmark"}>
             <SaveIcon />

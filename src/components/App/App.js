@@ -8,7 +8,7 @@ import NotFound from '../NotFoundMistake/NotFound';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Preloader from '../Preloader/Preloader';
-import './App.css';
+
 
 const App = () => {
 
@@ -19,7 +19,7 @@ const App = () => {
   }, []);
 
   return (
-    <section className="promo">
+    <>
       {isLoading ? (
         <Preloader />
       ) : (
@@ -33,7 +33,7 @@ const App = () => {
           <Route path={'/signup'} element={<Register />} />
         </Routes>
       )}
-    </section>
+    </>
   )
 }
 
