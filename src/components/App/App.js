@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {Route, Routes} from "react-router-dom";
 import Main from '../Main/Main';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import MoviesCards from '../MoviesCardList/MoviesCards';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFoundMistake/NotFound';
+import Preloader from '../Preloader/Preloader';
+
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
-import Preloader from '../Preloader/Preloader';
 
 
 const App = () => {
-
-  const [isLoading, setIsLoading] = React.useState(true); // Создайте состояние isLoading
+  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   React.useEffect(() => {
     setIsLoading(false);
