@@ -55,35 +55,9 @@ class MainApi {
     })
       .then(this._checkResponse)
   }
-
-  loginUser(email, password) {
-    return fetch(`${this._url}/signin`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        email,
-        password
-      })
-    })
-      .then(this._checkResponse)
-  }
-
-  createUser(name, email, password) {
-    return fetch(`${this._url}/signup`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        name,
-        email,
-        password
-      })
-    })
-      .then(this._checkResponse)
-  }
-
 }
 
-const MainApi = new ApiMain({
+const api = new MainApi ({
   url: 'https://api.diplombron.nomoreparties.co',
   headers: {
     authorization: `Bearer ${localStorage.getItem('JWT')}`,
@@ -91,4 +65,4 @@ const MainApi = new ApiMain({
   }
 })
 
-export default MainApi;
+export default api;

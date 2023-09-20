@@ -13,7 +13,7 @@ const Header = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const isAuthenticated = true;
+  const isAuthenticated = localStorage.getItem("JWT");;
 
   return (
     <header className={"header"}>
