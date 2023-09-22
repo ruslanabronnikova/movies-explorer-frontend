@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import MovieCard from "../MovieCard/MovieCard";
-import Preloader from "../Preloader/Preloader"; 
+import Preloader from "../Preloader/Preloader";
 import "./MoviesCardList.css";
 
-const MoviesCardList = ({ data }) => {
+const MoviesCardList = ({ data, isShortFilterActive }) => {
   const [cardsCount, setCardsCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
   const cardsToAddOnClick = 4;
 
   const updateCardsCount = () => {
@@ -32,28 +32,27 @@ const MoviesCardList = ({ data }) => {
     setTimeout(() => {
       const nextVisibleCount = cardsCount + cardsToAddOnClick;
       setCardsCount(nextVisibleCount);
-      setIsLoading(false); 
-    }, 1000); 
+      setIsLoading(false);
+    }, 1000);
   };
+
+  // Фильтрация фильмов по длительности и короткометражности
+  const filteredData = isShortFilterActive
+    ? data.filter((movie) => movie.duration <= 40)
+    : data;
 
   return (
     <section className={"movies-card-list"}>
       <ul className={"movies-card-list__grid"}>
-        {data.slice(0, cardsCount).map((card, index) => (
-          <MovieCard
-            key={index}
-            title={card.title}
-            duration={card.duration}
-            imageUrl={card.imageUrl}
-            isSaved={card.isSaved}
-          />
+        {filteredData.slice(0, cardsCount).map((movie) => (
+          <MovieCard key={movie.id ?? movie._id} movie={movie} />
         ))}
       </ul>
-      {isLoading ? ( 
+      {isLoading ? (
         <Preloader />
-      ) : cardsCount < data.length && (
+      ) : cardsCount < filteredData.length && (
         <div className={"movie-card-container__load-more"}>
-          <button 
+          <button
             type="button"
             className={"movie-card-container__btn-more"}
             onClick={handleLoadMoreClick}

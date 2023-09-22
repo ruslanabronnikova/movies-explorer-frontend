@@ -20,12 +20,19 @@ import InfoTooltip from '../InfoToolTip/InfoTooltip';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({
+    name: '', // Имя пользователя
+    email: '', // Email пользователя
+  });
+
+  // Функция для обновления данных текущего пользователя
+  const updateCurrentUser = (newUserData) => {
+    setCurrentUser(newUserData);
+  };
 
   const navigate = useNavigate();
   const [infoPopupCheckOpen, setInfoPopupCheckOpen] = useState(false)
@@ -42,15 +49,28 @@ const App = () => {
 
   function handleReg({ name, email, password }) {
     auth.register(name, email, password)
-      .then(() => {
-        // После успешной регистрации, устанавливаем флаг авторизации в localStorage
+      .then((data) => {
         localStorage.setItem('isLoggedIn', 'true');
         setIsLoggedIn(true);
-        navigate('/movies');
+        // Обновите данные о текущем пользователе и передайте их через контекст
+        updateCurrentUser(data);
+        // После регистрации выполните авторизацию
+        auth.login(email, password)
+          .then((loginData) => {
+            if (loginData.JWT) {
+              localStorage.setItem('JWT', loginData.JWT);
+              setIsLoggedIn(true);
+              navigate('/movies');
+            }
+          })
+          .catch(() => {
+            setInfoPopupCheck(false);
+            setInfoPopupCheckOpen(true);
+          });
       })
-      .catch((err) => {
-        setInfoPopupCheck(false)
-        setInfoPopupCheckOpen(true)
+      .catch(() => {
+        setInfoPopupCheck(false);
+        setInfoPopupCheckOpen(true);
       });
   }
 
@@ -112,7 +132,7 @@ const App = () => {
             />
             <Route
               path={'/profile'}
-              element={isLoggedIn ? <Profile /> : <Navigate to="/" />}
+              element={isLoggedIn ? <Profile currentUser={currentUser} isLoggedIn={isLoggedIn} /> : <Navigate to="/" />}
             />
 
             <Route path={'*'} element={<NotFound />} />

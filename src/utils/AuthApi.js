@@ -1,4 +1,6 @@
-export const BASE_URL = 'https://api.diplombron.nomoreparties.co';
+// export const BASE_URL = 'https://api.diplombron.nomoreparties.co';
+
+export const BASE_URL = 'http://localhost:3000';
 
 export const handleResponse = (res) => {
   if (res.ok) {

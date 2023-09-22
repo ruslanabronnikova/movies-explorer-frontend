@@ -19,18 +19,17 @@ class MainApi {
       .then(this._checkResponse)
   }
 
-  updateUser(name, about) {
+  updateUser({name, email}) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         name,
-        about
+        email
       })
     })
       .then(this._checkResponse)
   }
-
 
   getMovie() {
     return fetch(`${this._url}/movies`, {
@@ -58,7 +57,8 @@ class MainApi {
 }
 
 const api = new MainApi ({
-  url: 'https://api.diplombron.nomoreparties.co',
+  // url: 'https://api.diplombron.nomoreparties.co',
+  url: 'http://localhost:3000',
   headers: {
     authorization: `Bearer ${localStorage.getItem('JWT')}`,
     'Content-Type': 'application/json',

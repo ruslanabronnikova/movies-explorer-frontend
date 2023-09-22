@@ -1,11 +1,12 @@
 import React from "react";
 import './FilterCheckbox.css';
 
-const FilterCheckbox = () => {
+const FilterCheckbox = ({ setIsShortFilterActive }) => {
   const [checked, setChecked] = React.useState(false);
 
   function changeCheckbox() {
     setChecked(!checked);
+    setIsShortFilterActive(!checked); // Инвертируем значение состояния короткометражных фильмов
   }
 
   return (

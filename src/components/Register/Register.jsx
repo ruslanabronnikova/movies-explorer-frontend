@@ -24,41 +24,41 @@ const Register = (props) => {
     validateField(name, value);
   };
 
-  const validateField = (name, value) => {
-    let errors = { ...formErrors };
-    switch (name) {
-      case "name":
-        if (!value.trim()) {
-          errors.name = "Поле 'Имя' обязательно для заполнения";
-        } else {
-          errors.name = "";
-        }
-        break;
-      case "email":
-        if (!value.trim()) {
-          errors.email = "Поле 'Email' обязательно для заполнения";
-        } else if (!isValidEmail(value)) {
-          errors.email = "Введите корректный Email";
-        } else {
-          errors.email = "";
-        }
-        break;
-      case "password":
-        if (!value.trim()) {
-          errors.password = "Поле 'Пароль' обязательно для заполнения";
-        } else if (value.length < 8) {
-          errors.password = "Пароль должен содержать не менее 8 символов";
-        } else {
-          errors.password = "";
-        }
-        break;
-      default:
-        break;
-    }
-  
-    setFormErrors(errors);
-    setIsValid(Object.values(errors).every((error) => error === ""));
-  };
+const validateField = (name, value) => {
+  let errors = { ...formErrors };
+  switch (name) {
+    case "name":
+      if (!value.trim()) {
+        errors.name = "Поле 'Имя' обязательно для заполнения";
+      } else {
+        errors.name = "";
+      }
+      break;
+    case "email":
+      if (!value.trim()) {
+        errors.email = "Поле 'Email' обязательно для заполнения";
+      } else if (!isValidEmail(value)) {
+        errors.email = "Введите корректный Email";
+      } else {
+        errors.email = "";
+      }
+      break;
+    case "password":
+      if (!value.trim()) {
+        errors.password = "Поле 'Пароль' обязательно для заполнения";
+      } else if (value.length < 8) {
+        errors.password = "Пароль должен содержать не менее 8 символов";
+      } else {
+        errors.password = "";
+      }
+      break;
+    default:
+      break;
+  }
+
+  setFormErrors(errors);
+  setIsValid(Object.values(errors).every((error) => error === ""));
+};
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

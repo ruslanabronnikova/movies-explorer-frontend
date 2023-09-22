@@ -55,6 +55,12 @@
   line-height: normal;
 }
 
+.prof__container-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .prof__btns {
   display: flex;
   flex-direction: column;
