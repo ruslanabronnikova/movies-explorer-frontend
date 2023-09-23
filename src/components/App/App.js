@@ -18,7 +18,7 @@ import api from '../../utils/MainApi';
 import * as auth from '../../utils/AuthApi'
 import InfoTooltip from '../InfoToolTip/InfoTooltip';
 
-import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { UserProvider } from '../../contexts/UserProvider';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -114,36 +114,50 @@ const App = () => {
 
   return (
     <>
-      <CurrentUserContext.Provider value={currentUser}>
+      <UserProvider>
         {isLoading ? (
           <Preloader />
         ) : (
           <Routes>
-            <Route path={'/'} element={<Main />} />
+            <Route path={'/'} element={<Main/>} />
 
-            {/* Используем условия для защиты маршрутов */}
             <Route
-              path={'/movies'}
-              element={isLoggedIn ? <MoviesCards /> : <Navigate to="/" />}
+              path="/movies"
+              element={
+                <ProtectedRoute
+                  element={MoviesCards}
+                  isLoggedIn={isLoggedIn}
+                />
+              }
             />
             <Route
-              path={'/saved-movies'}
-              element={isLoggedIn ? <SavedMovies /> : <Navigate to="/" />}
+              path="/saved-movies"
+              element={
+                <ProtectedRoute
+                  element={SavedMovies}
+                  isLoggedIn={isLoggedIn}
+                />
+              }
             />
             <Route
-              path={'/profile'}
-              element={isLoggedIn ? <Profile currentUser={currentUser} isLoggedIn={isLoggedIn} /> : <Navigate to="/" />}
+              path="/profile"
+              element={
+                <ProtectedRoute
+                  element={Profile}
+                  isLoggedIn={isLoggedIn}
+                />
+              }
             />
-
             <Route path={'*'} element={<NotFound />} />
             <Route path={'/signin'} element={<Login onLog={handleLog} />} />
             <Route path={'/signup'} element={<Register onReg={handleReg} />} />
           </Routes>
         )}
         <InfoTooltip isOpen={infoPopupCheckOpen} onClose={closeAllPopups} onStatus={infoPopupCheck} />
-      </CurrentUserContext.Provider>
+      </UserProvider>
     </>
   )
 }
 
 export default App;
+

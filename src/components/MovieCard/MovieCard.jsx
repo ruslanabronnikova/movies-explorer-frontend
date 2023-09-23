@@ -9,12 +9,14 @@ import DelIcon from "../IconUi/DelIcon";
 const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
   const [isLiked, setIsLiked] = useState(false);
 
+  
   useEffect(() => {
-    // Здесь можно получить данные о сохраненных фильмах из localStorage
+    // При монтировании компонента, проверьте, сохранена ли карточка в localStorage
     const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
     const isMovieSaved = savedMovies.some(savedMovie => savedMovie._id === movie._id);
     setIsLiked(isMovieSaved);
-  }, []);
+  }, [movie]);
+  
 
   // Изменим имя функции на formatMovieDuration
   const formatMovieDuration = () => {
@@ -32,6 +34,9 @@ const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
         const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
         savedMovies.push(movie);
         localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+        if (updateMovieLikedStatus) {
+          updateMovieLikedStatus(movie._id, true);
+        }
       })
       .catch((error) => {
         console.error("Ошибка при сохранении фильма:", error);
@@ -53,7 +58,7 @@ const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
         console.error("Ошибка при удалении фильма:", error);
       });
   };
-  
+
 
   const image_url = movie.image.url ? 'https://api.nomoreparties.co' + movie.image.url : movie.image;
 
@@ -61,13 +66,21 @@ const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
     <li className={"movie-card"}>
       <div className={"movie-card__saved-flag"}>
         {isSavedPage ? ( // Если на странице "Сохраненные фильмы", отображаем иконку удаления
-          <button type="button" className={"movie-card__save-button"} onClick={handleRemoveClick}>
+          <button type="button" className={"movie-card__del-button"} onClick={handleRemoveClick}>
             <DelIcon />
           </button>
         ) : (
-          <button type="button" className={"movie-card__save-button"} onClick={handleSaveClick}>
-            {isLiked ? <SaveIcon /> : 'Сохранить'} {/* Отображаем иконку в зависимости от состояния isLiked */}
-          </button>
+          <>
+            {isLiked ? (
+              <>
+                <SaveIcon/>
+              </>
+            ) : (
+              <button type="button" className={"movie-card__save-button"} onClick={handleSaveClick}>
+                Сохранить
+              </button>
+            )}
+          </>
         )}
       </div>
       <a

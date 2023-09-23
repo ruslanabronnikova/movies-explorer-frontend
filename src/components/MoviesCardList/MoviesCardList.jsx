@@ -47,7 +47,7 @@ const MoviesCardList = ({ data, isShortFilterActive, isSavedPage, updateMovieLik
   const filteredData = isShortFilterActive
     ? data.filter((movie) => movie.duration <= 40)
     : data;
-
+  
   return (
     <section className={"movies-card-list"}>
       <ul className={"movies-card-list__grid"}>
@@ -56,8 +56,8 @@ const MoviesCardList = ({ data, isShortFilterActive, isSavedPage, updateMovieLik
             key={movie.id ?? movie._id}
             movie={movie}
             isSavedPage={isSavedPage}
-            isLiked={savedMovies.some((savedMovie) => savedMovie.id === movie._id)} // Проверяем, сохранен ли фильм
-            updateMovieLikedStatus={updateMovieLikedStatus} // Передаем функцию для обновления состояния
+            isLiked={savedMovies.some((savedMovie) => savedMovie.id === movie._id)}
+            updateMovieLikedStatus={updateMovieLikedStatus}
           />
         ))}
       </ul>

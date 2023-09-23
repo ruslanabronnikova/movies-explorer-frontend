@@ -73,7 +73,18 @@
   cursor: pointer;
 }
 
+.movie-card__del-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
+
 .movie-card:hover .movie-card__save-button {
+  display: block;
+}
+
+.movie-card:hover .movie-card__del-button  {
   display: block;
 }
 

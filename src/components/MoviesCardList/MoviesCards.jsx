@@ -10,7 +10,6 @@ const MoviesCards = () => {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isShortFilterActive, setIsShortFilterActive] = useState(false);
 
-
   useEffect(() => {
     apiMovie
       .getMovies()
@@ -38,7 +37,7 @@ const MoviesCards = () => {
   };
 
   const applyShortFilter = (movies) => {
-    return movies.filter((movie) => movie.duration <= 40); // Примерное значение для короткометражных фильмов
+    return movies.filter((movie) => movie.duration <= 50); // Примерное значение для короткометражных фильмов
   };
 
   return (

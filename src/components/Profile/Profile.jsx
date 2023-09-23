@@ -4,7 +4,14 @@ import Header from "../Header/Header";
 import { useNavigate, Link } from 'react-router-dom';
 import api from "../../utils/MainApi";
 
-const Profile = ({ currentUser }) => {
+import { useUser } from "../../contexts/UserProvider";
+
+const Profile = () => {
+  const { currentUser } = useUser();
+
+  const [successMessage, setSuccessMessage] = useState("");
+  const [unsuccessMessage, setUnSuccessMessage] = useState("");
+
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
   const [isEditing, setIsEditing] = useState(false);
@@ -13,10 +20,11 @@ const Profile = ({ currentUser }) => {
     name: "",
     email: "",
   });
-  const [isValid, setIsValid] = useState(true); // Изначально считаем форму валидной, так как начальные значения уже установлены
+
+
+  const [isValid, setIsValid] = useState(true);
   const navigate = useNavigate();
 
-  // Функция для загрузки данных пользователя и обновления состояния
   const loadUserInfo = () => {
     setIsSaving(true);
     api.getUserInfo()
@@ -26,14 +34,12 @@ const Profile = ({ currentUser }) => {
       })
       .catch((error) => {
         console.error('Ошибка при загрузке данных пользователя:', error);
-        // Обработка ошибок
       })
       .finally(() => {
         setIsSaving(false);
       });
   };
 
-  // Вызывайте функцию загрузки данных пользователя при монтировании компонента
   useEffect(() => {
     loadUserInfo();
   }, []);
@@ -50,29 +56,26 @@ const Profile = ({ currentUser }) => {
   const handleSaveClick = () => {
     setIsSaving(true);
 
-    // Валидируйте каждое поле перед сохранением
     validateField("name", name);
     validateField("email", email);
 
-    // Проверьте, прошла ли валидация
     if (isValid) {
-      // Выводим данные перед отправкой
-      console.log('Данные перед отправкой:', { name, email });
-
       api.updateUser({ name, email })
         .then((updatedUser) => {
           setName(updatedUser.name);
           setEmail(updatedUser.email);
           setIsEditing(false);
+          setSuccessMessage("Данные успешно сохранены!"); // Устанавливаем сообщение об успешном сохранении
+          setTimeout(() => setSuccessMessage(""), 3000); // Сбрасываем сообщение через 3 секунды
         })
         .catch((error) => {
           console.error('Ошибка при обновлении данных пользователя:', error);
+          setUnSuccessMessage("При обновлении профиля произошла ошибка.")
         })
         .finally(() => {
           setIsSaving(false);
         });
     } else {
-      // Валидация не прошла, не выполняйте сохранение
       setIsSaving(false);
     }
   };
@@ -83,6 +86,8 @@ const Profile = ({ currentUser }) => {
       case "name":
         if (!value.trim()) {
           errors.name = "Поле 'Имя' обязательно для заполнения";
+        } else if (value.length < 2 || value.length > 30) {
+          errors.name = "Имя должно содержать от 2 до 30 символов";
         } else {
           errors.name = "";
         }
@@ -124,7 +129,10 @@ const Profile = ({ currentUser }) => {
                     className={"prof__input"}
                     type="text"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      validateField("name", e.target.value);
+                    }}
                   />
                 </>
               ) : (
@@ -132,6 +140,7 @@ const Profile = ({ currentUser }) => {
               )}
             </div>
             <span className="error">{formErrors.name}</span>
+            <hr className="prof__line-input" />
             <div className={"prof__text-container"}>
               <p className={"prof__name"}>E-mail</p>
               {isEditing ? (
@@ -140,7 +149,10 @@ const Profile = ({ currentUser }) => {
                     className={"prof__input"}
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      validateField("email", e.target.value);
+                    }}
                   />
                 </>
               ) : (
@@ -150,14 +162,20 @@ const Profile = ({ currentUser }) => {
             <span className="error">{formErrors.email}</span>
           </form>
           <div className={"prof__btns"}>
+            {successMessage && (
+              <p className="prof__success-message">{successMessage}</p>
+            )}
+            {unsuccessMessage && (
+              <p className="prof__unsuccess-message">{unsuccessMessage}</p>
+            )}
             {isEditing ? (
               <button
                 type="button"
-                className={"prof__button"}
+                className={`prof__button-save ${isValid ? "" : "prof__button-save_disabled"}`}
                 onClick={handleSaveClick}
-                disabled={!isValid}
+                disabled={!isValid || isSaving}
               >
-                {isSaving ? 'Сохранение...' : 'Сохранить'}
+                Сохранить
               </button>
             ) : (
               <button

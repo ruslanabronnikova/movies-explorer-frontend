@@ -7,4 +7,3 @@ function ProtectedRoute ({  element: Element, ...props  }) {
 )}
 
 export default ProtectedRoute;
- 
