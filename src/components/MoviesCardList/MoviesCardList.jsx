@@ -3,10 +3,11 @@ import MovieCard from "../MovieCard/MovieCard";
 import Preloader from "../Preloader/Preloader";
 import "./MoviesCardList.css";
 
-const MoviesCardList = ({ data, isShortFilterActive }) => {
+const MoviesCardList = ({ data, isShortFilterActive, isSavedPage, updateMovieLikedStatus }) => {
   const [cardsCount, setCardsCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const cardsToAddOnClick = 4;
+  const [savedMovies, setSavedMovies] = useState([]);
 
   const updateCardsCount = () => {
     const screenWidth = window.innerWidth;
@@ -27,6 +28,12 @@ const MoviesCardList = ({ data, isShortFilterActive }) => {
     };
   }, []);
 
+  useEffect(() => {
+    // Здесь можно получить данные о сохраненных фильмах из localStorage
+    const savedMoviesData = JSON.parse(localStorage.getItem("savedMovies")) || [];
+    setSavedMovies(savedMoviesData);
+  }, []);
+  
   const handleLoadMoreClick = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -45,7 +52,13 @@ const MoviesCardList = ({ data, isShortFilterActive }) => {
     <section className={"movies-card-list"}>
       <ul className={"movies-card-list__grid"}>
         {filteredData.slice(0, cardsCount).map((movie) => (
-          <MovieCard key={movie.id ?? movie._id} movie={movie} />
+          <MovieCard
+            key={movie.id ?? movie._id}
+            movie={movie}
+            isSavedPage={isSavedPage}
+            isLiked={savedMovies.some((savedMovie) => savedMovie.id === movie._id)} // Проверяем, сохранен ли фильм
+            updateMovieLikedStatus={updateMovieLikedStatus} // Передаем функцию для обновления состояния
+          />
         ))}
       </ul>
       {isLoading ? (

@@ -31,29 +31,45 @@ class MainApi {
       .then(this._checkResponse)
   }
 
-  getMovie() {
+  getMovies() {
     return fetch(`${this._url}/movies`, {
       method: 'GET',
       headers: this._headers,
     })
       .then(this._checkResponse)
   }
-
-  createMovie() {
+  
+  createMovie(movieData) {
+    console.log(movieData)
     return fetch(`${this._url}/movies`, {
       method: 'POST',
       headers: this._headers,
+      body: JSON.stringify({
+        country: movieData.country,
+        director: movieData.director,
+        duration: movieData.duration,
+        year: movieData.year,
+        description: movieData.description,
+        image: `${"https://api.nomoreparties.co"}${movieData.image.url}`,
+        trailerLink: movieData.trailerLink,
+        thumbnail: `${"https://api.nomoreparties.co"}${movieData.image.formats.thumbnail.url}` ,
+        movieId: movieData.id,
+        nameRU: movieData.nameRU || movieData.nameEN,
+        nameEN: movieData.nameEN || movieData.nameRU,
+      }),
     })
       .then(this._checkResponse)
-  } //доделать этот запрос надо добить параметры по которым добавлять фильм
+  }
+  
 
-  deleteMovieId(id) {
-    return fetch(`${this._url}/movies/${id}`, {
+  deleteMovieId(movieId) {
+    return fetch(`${this._url}/movies/${movieId}`, {
       method: 'DELETE',
       headers: this._headers,
     })
       .then(this._checkResponse)
   }
+  
 }
 
 const api = new MainApi ({

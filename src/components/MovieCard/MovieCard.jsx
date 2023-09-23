@@ -1,10 +1,14 @@
 // MovieCard.jsx
 import React from "react";
 import "./MovieCard.css";
-import SaveIcon from "../IconUi/SaveIcon";
 
-const MovieCard = ({ movie, isSaved }) => {
-  const isLiked = !isSaved && movie.isLiked;
+import MainApi from '../../utils/MainApi';
+
+import SaveIcon from "../IconUi/SaveIcon";
+import DelIcon from "../IconUi/DelIcon";
+
+const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
+  const [isLiked, setIsLiked] = React.useState(movie.isLiked);
 
   // Изменим имя функции на formatMovieDuration
   const formatMovieDuration = () => {
@@ -15,17 +19,39 @@ const MovieCard = ({ movie, isSaved }) => {
     }
   };
 
+
+  const handleSaveClick = () => {
+    console.log('данные перед отправкой', movie);
+    
+    debugger
+    MainApi.createMovie(movie)
+      .then((movie) => {
+        // Обновление состояния isLiked в локальном хранилище
+        setIsLiked(true);
+        // Добавление фильма в массив сохраненных фильмов в локальном хранилище
+        const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
+        savedMovies.push(movie._id);
+        localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+      })
+      .catch((error) => {
+        console.error("Ошибка при сохранении фильма:", error);
+      });
+  };
+  
+
+  const image_url = movie.image.url ? 'https://api.nomoreparties.co' + movie.image.url : movie.image;
+
   return (
     <li className={"movie-card"}>
       <div className={"movie-card__saved-flag"}>
-        {!isSaved ? (
-          <button type="button" className={"movie-card__save-button"}>
-            {isLiked ? "Удалить" : "Сохранить"}
+        {isSavedPage ? ( // Если на странице "Сохраненные фильмы", отображаем иконку удаления
+          <button type="button" className={"movie-card__save-button"} onClick={handleSaveClick}>
+            <DelIcon />
           </button>
         ) : (
-          <span className={"movie-card__saved-checkmark"}>
-            <SaveIcon />
-          </span>
+          <button type="button" className={"movie-card__save-button"} onClick={handleSaveClick}>
+            {isLiked ? <SaveIcon /> : 'Сохранить'} {/* Отображаем иконку в зависимости от состояния isLiked */}
+          </button>
         )}
       </div>
       <a
@@ -35,7 +61,7 @@ const MovieCard = ({ movie, isSaved }) => {
         href={movie.trailerLink}
       >
         <img
-          src={`${"https://api.nomoreparties.co"}${movie.image.url}`}
+          src={image_url}
           className={"movie-card__image"}
           alt={movie.nameRU}
         />

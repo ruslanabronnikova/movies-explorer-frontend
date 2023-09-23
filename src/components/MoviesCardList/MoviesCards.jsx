@@ -46,7 +46,7 @@ const MoviesCards = () => {
       <Header />
       <main>
         <SearchForm onSearch={handleSearch} setIsShortFilterActive={setIsShortFilterActive} />
-        <MoviesCardList data={filteredMovies} />
+        <MoviesCardList data={filteredMovies}  />
       </main>
       <Footer />
     </>
