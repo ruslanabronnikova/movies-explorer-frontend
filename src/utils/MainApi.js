@@ -63,6 +63,7 @@ class MainApi {
   
 
   deleteMovieId(movieId) {
+    console.log('id movie del', movieId)
     return fetch(`${this._url}/movies/${movieId}`, {
       method: 'DELETE',
       headers: this._headers,

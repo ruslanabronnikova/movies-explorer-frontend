@@ -11,7 +11,6 @@ const SavedMovies = () => {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isShortFilterActive, setIsShortFilterActive] = useState(false);
 
-  // Здесь вы можете использовать useEffect для загрузки сохраненных фильмов при монтировании компонента
   useEffect(() => {
     MainApi.getMovies()
       .then((movies) => {
@@ -41,12 +40,22 @@ const SavedMovies = () => {
     return movies.filter((movie) => movie.duration <= 40); // Примерное значение для короткометражных фильмов
   };
 
+    // Обработчик удаления фильма
+    const handleRemoveMovie = (movieId) => {
+      // Удалите фильм из localStorage
+      const updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie._id !== movieId);
+      localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+      
+      // Обновите состояние savedMovies
+      setSavedMovies(updatedSavedMovies);
+    };
+
   return (
     <>
       <Header />
       <main>
         <SearchFrom onSearch={handleSearch} setIsShortFilterActive={setIsShortFilterActive} />
-        <MoviesCardList data={savedMovies} isSaved={true} isSavedPage={true} />
+        <MoviesCardList data={savedMovies} isSaved={true} isSavedPage={true} updateMovieLikedStatus={handleRemoveMovie} />
       </main>
       <Footer />
     </>
