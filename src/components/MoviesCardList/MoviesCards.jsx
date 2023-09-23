@@ -7,6 +7,7 @@ import apiMovie from "../../utils/MoviesApi";
 
 const MoviesCards = () => {
   const [moviesData, setMoviesData] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]); 
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isShortFilterActive, setIsShortFilterActive] = useState(false);
 
@@ -40,12 +41,22 @@ const MoviesCards = () => {
     return movies.filter((movie) => movie.duration <= 50); // Примерное значение для короткометражных фильмов
   };
 
+  // Обработчик удаления фильма
+  const handleRemoveMovie = (movieId) => {
+    // Удалите фильм из localStorage
+    const updatedSavedMovies = moviesData.filter(moviesData => moviesData._id !== movieId);
+    localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+
+    // Обновите состояние savedMovies
+    setSavedMovies(updatedSavedMovies);
+  };
+
   return (
     <>
       <Header />
       <main>
         <SearchForm onSearch={handleSearch} setIsShortFilterActive={setIsShortFilterActive} />
-        <MoviesCardList data={filteredMovies}  />
+        <MoviesCardList data={filteredMovies} updateMovieLikedStatus={handleRemoveMovie} />
       </main>
       <Footer />
     </>

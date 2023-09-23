@@ -42,7 +42,6 @@ const App = () => {
     setIsLoading(false);
   }, []);
 
-
   function closeAllPopups() {
     setInfoPopupCheckOpen(false);
   }
@@ -66,14 +65,13 @@ const App = () => {
           .catch(() => {
             setInfoPopupCheck(false);
             setInfoPopupCheckOpen(true);
+          })
+          .finally(() => {
+            setIsLoading(false); 
           });
       })
-      .catch(() => {
-        setInfoPopupCheck(false);
-        setInfoPopupCheckOpen(true);
-      });
   }
-
+  
   function handleLog({ email, password }) {
     auth.login(email, password)
       .then((data) => {
@@ -89,8 +87,12 @@ const App = () => {
       .catch(() => {
         setInfoPopupCheck(false)
         setInfoPopupCheckOpen(true)
+      })
+      .finally(() => {
+        setIsLoading(false); 
       });
   }
+  
 
   function checkToken() {
     const token = localStorage.getItem('JWT');
@@ -99,15 +101,17 @@ const App = () => {
         .then((res) => {
           if (res) {
             setIsLoggedIn(true);
-            navigate("/movies");
           }
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          setIsLoading(false); 
         });
     }
   }
-
+  
   useEffect(() => {
     checkToken()
   }, []);

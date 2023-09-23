@@ -9,14 +9,14 @@ import DelIcon from "../IconUi/DelIcon";
 const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
   const [isLiked, setIsLiked] = useState(false);
 
-  
+
   useEffect(() => {
     // При монтировании компонента, проверьте, сохранена ли карточка в localStorage
     const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
     const isMovieSaved = savedMovies.some(savedMovie => savedMovie._id === movie._id);
     setIsLiked(isMovieSaved);
   }, [movie]);
-  
+
 
   // Изменим имя функции на formatMovieDuration
   const formatMovieDuration = () => {
@@ -28,20 +28,40 @@ const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
   };
 
   const handleSaveClick = () => {
-    MainApi.createMovie(movie)
-      .then((movie) => {
-        setIsLiked(true);
-        const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
-        savedMovies.push(movie);
-        localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
-        if (updateMovieLikedStatus) {
-          updateMovieLikedStatus(movie._id, true);
-        }
-      })
-      .catch((error) => {
-        console.error("Ошибка при сохранении фильма:", error);
-      });
+    if (isLiked) {
+      // Если карточка уже добавлена, то выполняем удаление
+      MainApi.deleteMovieId(movie._id)
+        .then(() => {
+          setIsLiked(false);
+          const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
+          const updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie._id !== movie._id);
+          localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+          if (updateMovieLikedStatus) {
+            updateMovieLikedStatus(movie._id, false);
+          }
+        })
+        .catch((error) => {
+          console.error("Ошибка при удалении фильма:", error);
+          console.log(movie._id)
+        });
+    } else {
+      // Если карточка не добавлена, то выполняем сохранение
+      MainApi.createMovie(movie)
+        .then((newMovie) => {
+          setIsLiked(true);
+          const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
+          savedMovies.push(newMovie);
+          localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+          if (updateMovieLikedStatus) {
+            updateMovieLikedStatus(newMovie._id, true);
+          }
+        })
+        .catch((error) => {
+          console.error("Ошибка при сохранении фильма:", error);
+        });
+    }
   };
+  
 
   const handleRemoveClick = () => {
     MainApi.deleteMovieId(movie._id)
@@ -72,9 +92,9 @@ const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
         ) : (
           <>
             {isLiked ? (
-              <>
-                <SaveIcon/>
-              </>
+              <button type="button" className={"movie-card__del-button"} onClick={handleSaveClick}>
+                <SaveIcon />
+              </button>
             ) : (
               <button type="button" className={"movie-card__save-button"} onClick={handleSaveClick}>
                 Сохранить
