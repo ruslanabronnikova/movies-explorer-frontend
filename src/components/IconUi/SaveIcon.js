@@ -7,7 +7,7 @@ const SaveIcon = () => {
       width="21"
       height="21"
       viewBox="0 0 21 21"
-      fill="none"
+      fillRule="none"
     >
       <rect width="21" height="21" rx="10.5" fill="#EE3465" />
       <path

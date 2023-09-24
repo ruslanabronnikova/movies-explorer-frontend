@@ -21,7 +21,6 @@ const Profile = () => {
     email: "",
   });
 
-
   const [isValid, setIsValid] = useState(true);
   const navigate = useNavigate();
 
@@ -46,6 +45,9 @@ const Profile = () => {
 
   function handleOut() {
     localStorage.removeItem('JWT');
+    localStorage.removeItem('savedMovies');
+    localStorage.removeItem('searchResults');
+    localStorage.removeItem('isLoggedIn');
     navigate('/');
   }
 
@@ -65,12 +67,13 @@ const Profile = () => {
           setName(updatedUser.name);
           setEmail(updatedUser.email);
           setIsEditing(false);
-          setSuccessMessage("Данные успешно сохранены!"); // Устанавливаем сообщение об успешном сохранении
-          setTimeout(() => setSuccessMessage(""), 3000); // Сбрасываем сообщение через 3 секунды
+          setSuccessMessage("Данные успешно сохранены!"); 
+          setTimeout(() => setSuccessMessage(""), 3000); 
         })
         .catch((error) => {
           console.error('Ошибка при обновлении данных пользователя:', error);
           setUnSuccessMessage("При обновлении профиля произошла ошибка.")
+          setTimeout(() => setUnSuccessMessage(""), 3000);
         })
         .finally(() => {
           setIsSaving(false);

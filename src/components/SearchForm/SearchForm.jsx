@@ -5,19 +5,26 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 const SearchForm = ({ onSearch, setIsShortFilterActive }) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchQueryError, setSearchQueryError] = useState(""); // Добавляем состояние для ошибки
+  const [searchResults, setSearchResults] = useState([]); // Добавляем состояние для вывода сообщени о нулевом поиске 
 
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);
+    setSearchQueryError(""); // Сбрасываем ошибку при изменении ввода
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    onSearch(searchQuery); // Передаем поисковый запрос в родительский компонент
+    if (!searchQuery.trim()) {
+      setSearchQueryError("Поле 'Фильм' обязательно для заполнения");
+    } else {
+      onSearch(searchQuery);
+    }
   };
 
   return (
     <section className={"search"}>
-      <form className={"search__form"} onSubmit={handleFormSubmit}>
+      <form className={"search__form"} onSubmit={handleFormSubmit} noValidate>
         <div className={"search__from-container"}>
           <input
             className={"search__input"}
@@ -32,6 +39,9 @@ const SearchForm = ({ onSearch, setIsShortFilterActive }) => {
             <BtnSearchIcon />
           </button>
         </div>
+        {searchQueryError && (
+          <span className="search__error">{searchQueryError}</span>
+        )} 
         <div className={"search__filter"}>
           <FilterCheckbox setIsShortFilterActive={setIsShortFilterActive} />
         </div>

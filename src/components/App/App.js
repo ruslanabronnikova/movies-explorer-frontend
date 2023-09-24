@@ -19,11 +19,12 @@ import * as auth from '../../utils/AuthApi'
 import InfoTooltip from '../InfoToolTip/InfoTooltip';
 
 import { UserProvider } from '../../contexts/UserProvider';
+import { data } from '../../utils/constants';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('JWT'));
-  
+
   const [currentUser, setCurrentUser] = useState({
     name: '',
     email: '',
@@ -38,9 +39,18 @@ const App = () => {
   const [infoPopupCheckOpen, setInfoPopupCheckOpen] = useState(false)
   const [infoPopupCheck, setInfoPopupCheck] = useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsLoading(localStorage.getItem('JWT'));
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      api.getMovies().then((data) => {
+        localStorage.setItem('savedMovies', JSON.stringify(data));
+      });
+    }
+    console.log('вывод', data)
+  }, [isLoggedIn])
 
   function closeAllPopups() {
     setInfoPopupCheckOpen(false);
@@ -69,11 +79,10 @@ const App = () => {
           });
       })
   }
-  
+
   function handleLog({ email, password }) {
     auth.login(email, password)
       .then((data) => {
-        debugger
         if (data.JWT) {
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('JWT', data.JWT);
@@ -87,10 +96,9 @@ const App = () => {
         setInfoPopupCheckOpen(true)
       })
       .finally(() => {
-        setIsLoading(false); 
+        setIsLoading(false);
       });
   }
-  
 
   function checkToken() {
     const token = localStorage.getItem('JWT');
@@ -105,11 +113,11 @@ const App = () => {
           console.log(err);
         })
         .finally(() => {
-          setIsLoading(false); 
+          setIsLoading(false);
         });
     }
   }
-  
+
   useEffect(() => {
     checkToken()
   }, []);
@@ -121,7 +129,7 @@ const App = () => {
           <Preloader />
         ) : (
           <Routes>
-            <Route path={'/'} element={<Main/>} />
+            <Route path={'/'} element={<Main />} />
 
             <Route
               path="/movies"

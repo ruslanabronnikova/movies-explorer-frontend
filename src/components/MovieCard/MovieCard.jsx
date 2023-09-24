@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from "react";
-import "./MovieCard.css";
+import React, { useState, useEffect } from 'react';
+import './MovieCard.css';
 
 import MainApi from '../../utils/MainApi';
 
-import SaveIcon from "../IconUi/SaveIcon";
-import DelIcon from "../IconUi/DelIcon";
+import SaveIcon from '../IconUi/SaveIcon';
+import DelIcon from '../IconUi/DelIcon';
 
 const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
   const [isLiked, setIsLiked] = useState(false);
-
+  const [movieState, setMovieState] = useState(movie);
 
   useEffect(() => {
     // При монтировании компонента, проверьте, сохранена ли карточка в localStorage
-    const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
-    const isMovieSaved = savedMovies.some(savedMovie => savedMovie._id === movie._id);
+    const savedMovies = JSON.parse(localStorage.getItem('savedMovies')) || [];
+    const isMovieSaved = savedMovies.some(
+      (savedMovie) => savedMovie.movieId === movie.id
+    );
     setIsLiked(isMovieSaved);
+    console.log(savedMovies);
   }, [movie]);
-
 
   // Изменим имя функции на formatMovieDuration
   const formatMovieDuration = () => {
@@ -30,73 +32,98 @@ const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
   const handleSaveClick = () => {
     if (isLiked) {
       // Если карточка уже добавлена, то выполняем удаление
-      MainApi.deleteMovieId(movie._id)
+      MainApi.deleteMovieId(movieState._id)
         .then(() => {
           setIsLiked(false);
-          const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
-          const updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie._id !== movie._id);
-          localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+          const savedMovies =
+            JSON.parse(localStorage.getItem('savedMovies')) || [];
+          const updatedSavedMovies = savedMovies.filter(
+            (savedMovie) => savedMovie._id !== movieState._id
+          );
+          localStorage.setItem(
+            'savedMovies',
+            JSON.stringify(updatedSavedMovies)
+          );
           if (updateMovieLikedStatus) {
-            updateMovieLikedStatus(movie._id, false);
+            updateMovieLikedStatus(movieState._id, false);
           }
         })
         .catch((error) => {
-          console.error("Ошибка при удалении фильма:", error);
-          console.log(movie._id)
+          console.error('Ошибка при удалении фильма:', error);
         });
+
     } else {
       // Если карточка не добавлена, то выполняем сохранение
-      MainApi.createMovie(movie)
-        .then((movie) => {
-          // Обновление состояния isLiked в локальном хранилище
+      MainApi.createMovie(movieState)
+        .then((newMovie) => {
+          console.log(newMovie);
+          setMovieState(newMovie);
           setIsLiked(true);
-          // Добавление фильма в массив сохраненных фильмов в локальном хранилище
-          const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
-          savedMovies.push(movie._id);
-          savedMovies.push(movie);
-          localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+          const savedMovies =
+            JSON.parse(localStorage.getItem('savedMovies')) || [];
+          savedMovies.push(newMovie);
+          console.log(savedMovies);
+          localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+          if (updateMovieLikedStatus) {
+            updateMovieLikedStatus(newMovie._id, true);
+          }
         })
         .catch((error) => {
-          console.error("Ошибка при сохранении фильма:", error);
+          console.error('Ошибка при сохранении фильма:', error);
         });
     }
   };
 
-
   const handleRemoveClick = () => {
-    MainApi.deleteMovieId(movie._id)
+    MainApi.deleteMovieId(movieState._id)
       .then(() => {
         setIsLiked(false);
-        const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
-        const updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie._id !== movie._id);
-        localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+        const savedMovies =
+          JSON.parse(localStorage.getItem('savedMovies')) || [];
+        const updatedSavedMovies = savedMovies.filter(
+          (savedMovie) => savedMovie._id !== movieState._id
+        );
+        localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
         if (updateMovieLikedStatus) {
-          updateMovieLikedStatus(movie._id, false);
+          updateMovieLikedStatus(movieState._id, false);
         }
       })
       .catch((error) => {
-        console.error("Ошибка при удалении фильма:", error);
+        console.error('Ошибка при удалении фильма:', error);
       });
   };
 
-
-  const image_url = movie.image.url ? 'https://api.nomoreparties.co' + movie.image.url : movie.image;
+  const image_url = movie.image.url
+    ? 'https://api.nomoreparties.co' + movie.image.url
+    : movie.image;
 
   return (
-    <li className={"movie-card"}>
-      <div className={"movie-card__saved-flag"}>
+    <li className={'movie-card'}>
+      <div className={'movie-card__saved-flag'}>
         {isSavedPage ? ( // Если на странице "Сохраненные фильмы", отображаем иконку удаления
-          <button type="button" className={"movie-card__del-button"} onClick={handleRemoveClick}>
+          <button
+            type="button"
+            className={'movie-card__del-button'}
+            onClick={handleRemoveClick}
+          >
             <DelIcon />
           </button>
         ) : (
           <>
             {isLiked ? (
-              <button type="button" className={"movie-card__del-button"} onClick={handleSaveClick}>
+              <button
+                type="button"
+                className={'movie-card__del-button'}
+                onClick={handleSaveClick}
+              >
                 <SaveIcon />
               </button>
             ) : (
-              <button type="button" className={"movie-card__save-button"} onClick={handleSaveClick}>
+              <button
+                type="button"
+                className={'movie-card__save-button'}
+                onClick={handleSaveClick}
+              >
                 Сохранить
               </button>
             )}
@@ -104,22 +131,20 @@ const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
         )}
       </div>
       <a
-        className={"movie-card__link"}
+        className={'movie-card__link'}
         target="_blank"
         rel="noreferrer"
         href={movie.trailerLink}
       >
         <img
           src={image_url}
-          className={"movie-card__image"}
+          className={'movie-card__image'}
           alt={movie.nameRU}
         />
       </a>
-      <div className={"movie-card__content"}>
-        <h2 className={"movie-card__title"}>{movie.nameRU}</h2>
-        <p className={"movie-card__duration"}>
-          {formatMovieDuration()}
-        </p>
+      <div className={'movie-card__content'}>
+        <h2 className={'movie-card__title'}>{movie.nameRU}</h2>
+        <p className={'movie-card__duration'}>{formatMovieDuration()}</p>
       </div>
     </li>
   );
