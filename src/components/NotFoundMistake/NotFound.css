@@ -41,6 +41,8 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  background-color: transparent;
+  border: none;
 }
 
 @media(max-width: 768px) {

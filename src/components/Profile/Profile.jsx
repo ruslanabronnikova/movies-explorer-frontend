@@ -6,7 +6,7 @@ import api from "../../utils/MainApi";
 
 import { useUser } from "../../contexts/UserProvider";
 
-const Profile = () => {
+const Profile = ({ handleLogout }) => {
   const { currentUser } = useUser();
 
   const [successMessage, setSuccessMessage] = useState("");
@@ -42,15 +42,6 @@ const Profile = () => {
   useEffect(() => {
     loadUserInfo();
   }, []);
-
-  function handleOut() {
-    localStorage.removeItem('JWT');
-    localStorage.removeItem('savedMovies');
-    localStorage.removeItem('searchResults');
-    localStorage.removeItem('searchQuery');
-    localStorage.removeItem('isLoggedIn');
-    navigate('/');
-  }
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -190,7 +181,7 @@ const Profile = () => {
                 Редактировать
               </button>
             )}
-            <button type="submit" className={"prof__button"} onClick={handleOut}>
+            <button type="submit" className={"prof__button"} onClick={handleLogout}>
               <Link to="/">Выйти из аккаунта</Link>
             </button>
           </div>

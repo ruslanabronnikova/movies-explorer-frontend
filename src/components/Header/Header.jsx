@@ -35,7 +35,7 @@ const Header = () => {
         ) : (
           <nav className="header__btns-log">
             <button type="button" className={"header__register-button"}><Link to="/signup">Регистрация</Link></button>
-            <button type="button" className={"header__login-button"}><Link to="/signin">Войти</Link></button>
+            <Link to="/signin"><button type="button" className={"header__login-button"}>Войти</button></Link>
           </nav>
         )}
         {isAuthenticated ? (

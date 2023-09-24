@@ -11,7 +11,7 @@ const MoviesCardList = ({
 }) => {
   const [cardsCount, setCardsCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const cardsToAddOnClick = 4;
+  const cardsToAddOnClick = 3;
   const [savedMovies, setSavedMovies] = useState([]);
 
   const updateCardsCount = () => {
@@ -43,11 +43,22 @@ const MoviesCardList = ({
   const handleLoadMoreClick = () => {
     setIsLoading(true);
     setTimeout(() => {
-      const nextVisibleCount = cardsCount + cardsToAddOnClick;
+      let nextVisibleCount;
+      const screenWidth = window.innerWidth;
+  
+      if (screenWidth >= 1280) {
+        nextVisibleCount = cardsCount + 3;
+      } else if (screenWidth >= 768) {
+        nextVisibleCount = cardsCount + 2;
+      } else {
+        nextVisibleCount = cardsCount + 2;
+      }
+  
       setCardsCount(nextVisibleCount);
       setIsLoading(false);
     }, 1000);
   };
+  
 
   // Фильтрация фильмов по длительности и короткометражности
   const filteredData = isShortFilterActive

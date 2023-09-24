@@ -49,45 +49,59 @@ const MoviesCards = ({ getSavedMovies, getAllMovies }) => {
   useEffect(() => {
     const savedSearchResults = localStorage.getItem('searchResults');
     const savedQuery = localStorage.getItem('searchQuery');
-
+  
     if (savedSearchResults) {
       setFilteredMovies(JSON.parse(savedSearchResults));
       setIsSearchPerformed(true);
     }
-
+  
     if (savedQuery) {
       setSearchQuery(savedQuery);
     }
   }, []);
+  
 
   const handleSearch = (searchQuery) => {
     setSearchQuery(searchQuery);
     setIsSearchPerformed(true);
-
-    // Сохраняем поисковый запрос в localStorage
-    localStorage.setItem('searchQuery', searchQuery);
+  
+    // Проверяем, что найдены фильмы
+    const filtered = moviesData.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  
+    if (filtered.length > 0) {
+      // Сохраняем результаты поиска в localStorage
+      localStorage.setItem('searchResults', JSON.stringify(filtered));
+      localStorage.setItem('searchQuery', searchQuery);
+    }
   };
-
-
+  
   useEffect(() => {
     if (!isSearchPerformed) {
       return;
     }
-
+  
     let filtered = moviesData.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
     );
-
+  
     if (isShortFilterActive) {
       filtered = applyShortFilter(filtered);
     }
-
-    setFilteredMovies(filtered);
-
-    // Сохраняем результаты поиска в localStorage
-    localStorage.setItem('searchResults', JSON.stringify(filtered));
-    localStorage.setItem('searchQuery', searchQuery);
+  
+    if (filtered.length > 0) {
+      setFilteredMovies(filtered);
+      // Сохранять результаты поиска в localStorage только если есть результаты
+      localStorage.setItem('searchResults', JSON.stringify(filtered));
+      localStorage.setItem('searchQuery', searchQuery);
+    } else {
+      // Очистить localStorage, если результатов поиска нет
+      localStorage.removeItem('searchResults');
+      localStorage.removeItem('searchQuery');
+    }
   }, [isSearchPerformed, searchQuery, moviesData, isShortFilterActive]);
+  
 
 
   const applyShortFilter = (movies) => {

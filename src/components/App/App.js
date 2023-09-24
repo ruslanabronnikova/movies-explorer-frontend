@@ -31,6 +31,9 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('JWT'));
   const [allMovies, setAllMovies] = useState([]);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+
   const [currentUser, setCurrentUser] = useState({
     name: '', // Имя пользователя
     email: '', // Email пользователя
@@ -96,6 +99,7 @@ const App = () => {
         setInfoPopupCheckOpen(true);
       })
       .finally(() => {
+        setIsSubmitting(false); // Устанавливаем состояние отправки в false после завершения запроса
         setIsLoading(false);
       });
   }
@@ -138,6 +142,18 @@ const App = () => {
     return Promise.resolve(movies);
   }
 
+  function handleLogout() {
+    // Очистка данных из локального хранилища и сброс состояния
+    localStorage.removeItem('JWT');
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+    setCurrentUser({
+      name: '',
+      email: '',
+    });
+    navigate('/'); // Перенаправление на главную страницу после выхода
+  }
+
   useEffect(() => {
     checkToken();
   }, []);
@@ -150,6 +166,19 @@ const App = () => {
         ) : (
           <Routes>
             <Route path={'/'} element={<Main />} />
+
+            {/* Добавляем проверку на isLoggedIn перед роутами для страниц регистрации и входа */}
+            {isLoggedIn ? (
+              <>
+                <Route path="/signin" element={<Navigate to="/movies" />} />
+                <Route path="/signup" element={<Navigate to="/movies" />} />
+              </>
+            ) : (
+              <>
+                <Route path="/signin" element={<Login onLog={handleLog} />} />
+                <Route path="/signup" element={<Register onReg={handleReg} />} />
+              </>
+            )}
 
             <Route
               path="/movies"
@@ -171,12 +200,13 @@ const App = () => {
             <Route
               path="/profile"
               element={
-                <ProtectedRoute element={Profile} isLoggedIn={isLoggedIn} />
+                <ProtectedRoute
+                  element={(props) => <Profile {...props} handleLogout={handleLogout} />}
+                  isLoggedIn={isLoggedIn}
+                />
               }
             />
             <Route path={'*'} element={<NotFound />} />
-            <Route path={'/signin'} element={<Login onLog={handleLog} />} />
-            <Route path={'/signup'} element={<Register onReg={handleReg} />} />
           </Routes>
         )}
         <InfoTooltip
