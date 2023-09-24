@@ -25,8 +25,8 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('JWT'));
   
   const [currentUser, setCurrentUser] = useState({
-    name: '', // Имя пользователя
-    email: '', // Email пользователя
+    name: '',
+    email: '',
   });
 
   // Функция для обновления данных текущего пользователя
@@ -51,9 +51,7 @@ const App = () => {
       .then((data) => {
         localStorage.setItem('isLoggedIn', 'true');
         setIsLoggedIn(true);
-        // Обновите данные о текущем пользователе и передайте их через контекст
         updateCurrentUser(data);
-        // После регистрации выполните авторизацию
         auth.login(email, password)
           .then((loginData) => {
             if (loginData.JWT) {

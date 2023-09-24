@@ -47,21 +47,21 @@ const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
     } else {
       // Если карточка не добавлена, то выполняем сохранение
       MainApi.createMovie(movie)
-        .then((newMovie) => {
+        .then((movie) => {
+          // Обновление состояния isLiked в локальном хранилище
           setIsLiked(true);
+          // Добавление фильма в массив сохраненных фильмов в локальном хранилище
           const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
-          savedMovies.push(newMovie);
+          savedMovies.push(movie._id);
+          savedMovies.push(movie);
           localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
-          if (updateMovieLikedStatus) {
-            updateMovieLikedStatus(newMovie._id, true);
-          }
         })
         .catch((error) => {
           console.error("Ошибка при сохранении фильма:", error);
         });
     }
   };
-  
+
 
   const handleRemoveClick = () => {
     MainApi.deleteMovieId(movie._id)
