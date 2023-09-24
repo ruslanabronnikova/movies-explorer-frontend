@@ -47,6 +47,7 @@ const Profile = () => {
     localStorage.removeItem('JWT');
     localStorage.removeItem('savedMovies');
     localStorage.removeItem('searchResults');
+    localStorage.removeItem('searchQuery');
     localStorage.removeItem('isLoggedIn');
     navigate('/');
   }
