@@ -22,8 +22,8 @@ import { UserProvider } from '../../contexts/UserProvider';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('JWT'));
+  
   const [currentUser, setCurrentUser] = useState({
     name: '', // Имя пользователя
     email: '', // Email пользователя
@@ -39,7 +39,7 @@ const App = () => {
   const [infoPopupCheck, setInfoPopupCheck] = useState(false)
 
   React.useEffect(() => {
-    setIsLoading(false);
+    setIsLoading(localStorage.getItem('JWT'));
   }, []);
 
   function closeAllPopups() {
