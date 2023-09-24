@@ -1,77 +1,115 @@
-import React, { useState, useEffect } from "react";
-import SearchForm from "../SearchForm/SearchForm";
-import MoviesCardList from "./MoviesCardList";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-import apiMovie from "../../utils/MoviesApi";
+import React, { useState, useEffect } from 'react';
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardList from './MoviesCardList';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
-const MoviesCards = () => {
+const MoviesCards = ({ getSavedMovies, getAllMovies }) => {
   const [moviesData, setMoviesData] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isShortFilterActive, setIsShortFilterActive] = useState(false);
-
-  const [searchResultsFound, setSearchResultsFound] = useState(true);
-
+  const [searchQuery, setSearchQuery] = useState('');
   const [isSearchPerformed, setIsSearchPerformed] = useState(false);
 
-
-  // Функция для выполнения запроса к API при поиске
-  const fetchMovies = (searchQuery) => {
-    apiMovie
-      .getMovies()
-      .then((data) => {
-        setMoviesData(data);
-        // Фильтруем результаты по поисковому запросу
-        const filtered = data.filter((movie) =>
-          movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-
-        // Если фильтр короткометражных фильмов активен, применяем фильтрацию
-        if (isShortFilterActive) {
-          setFilteredMovies(applyShortFilter(filtered));
-        } else {
-          setFilteredMovies(filtered);
-        }
-
-        // Сохраняем результаты поиска в localStorage
-        localStorage.setItem("searchResults", JSON.stringify(filtered));
-
-        // Проверяем, были ли найдены результаты
-        setSearchResultsFound(filtered.length > 0);
-      })
-      .catch((error) => {
-        console.error("Ошибка при получении фильмов:", error);
-      });
+  const updateMoviesForSaved = (movies, savedData) => {
+    return movies.map((movie) => {
+      const savedItems = savedData.filter(
+        (savedMovie) => movie.id === savedMovie.movieId
+      );
+      if (savedItems.length > 0) {
+        return savedItems[0];
+      }
+      return movie;
+    });
   };
 
   useEffect(() => {
-    // Проверяем, есть ли результаты поиска в localStorage
-    const savedSearchResults = localStorage.getItem("searchResults");
+    let savedData = [];
+    getSavedMovies()
+      .then((data) => {
+        savedData = data;
+        localStorage.setItem('savedMovies', JSON.stringify(data));
+        return getAllMovies();
+      })
+      .then((data) => {
+        const updatedData = updateMoviesForSaved(data, savedData);
+        setMoviesData(updatedData);
+      })
+      .catch((error) => {
+        console.error('Ошибка при получении фильмов:', error);
+      });
+  }, [getSavedMovies, getAllMovies]);
+
+  useEffect(() => {
+    const savedSearchResults = localStorage.getItem('searchResults');
+    const savedQuery = localStorage.getItem('searchQuery');
+  
     if (savedSearchResults) {
-      setMoviesData(JSON.parse(savedSearchResults));
       setFilteredMovies(JSON.parse(savedSearchResults));
+      setIsSearchPerformed(true);
+    }
+  
+    if (savedQuery) {
+      setSearchQuery(savedQuery);
     }
   }, []);
-
+  
   const handleSearch = (searchQuery) => {
-    // Выполняем запрос к API при поиске
-    fetchMovies(searchQuery);
-    setIsSearchPerformed(true); // Устанавливаем, что поиск был выполнен
+    setSearchQuery(searchQuery);
+    setIsSearchPerformed(true);
+  
+    // Сохраняем поисковый запрос в localStorage
+    localStorage.setItem('searchQuery', searchQuery);
   };
+  
+
+  useEffect(() => {
+    if (!isSearchPerformed) {
+      return;
+    }
+  
+    let filtered = moviesData.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  
+    if (isShortFilterActive) {
+      filtered = applyShortFilter(filtered);
+    }
+  
+    setFilteredMovies(filtered);
+  
+    // Сохраняем результаты поиска в localStorage
+    localStorage.setItem('searchResults', JSON.stringify(filtered));
+    localStorage.setItem('searchQuery', searchQuery);
+  }, [isSearchPerformed, searchQuery, moviesData, isShortFilterActive]);
+  
 
   const applyShortFilter = (movies) => {
-    return movies.filter((movie) => movie.duration <= 50); // Примерное значение для короткометражных фильмов
+    return movies.filter((movie) => movie.duration <= 50);
+  };
+
+  const handleRemoveMovie = (movieId) => {
+    const updatedSavedMovies = moviesData.filter(
+      (movie) => movie._id !== movieId
+    );
+    localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
   };
 
   return (
     <>
       <Header />
       <main>
-        <SearchForm onSearch={handleSearch} setIsShortFilterActive={setIsShortFilterActive} />
-        {isSearchPerformed && !searchResultsFound ? (
+        <SearchForm
+          onSearch={handleSearch}
+          setIsShortFilterActive={setIsShortFilterActive}
+        />
+        {isSearchPerformed && filteredMovies.length === 0 ? (
           <p className={"movies-card-list__search-nothing"}>Ничего не найдено</p>
         ) : (
-          <MoviesCardList data={filteredMovies} />
+          <MoviesCardList
+            data={filteredMovies}
+            updateMovieLikedStatus={handleRemoveMovie}
+          />
         )}
       </main>
       <Footer />

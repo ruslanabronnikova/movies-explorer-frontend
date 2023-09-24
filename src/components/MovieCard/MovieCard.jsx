@@ -12,12 +12,7 @@ const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
 
   useEffect(() => {
     // При монтировании компонента, проверьте, сохранена ли карточка в localStorage
-    const savedMovies = JSON.parse(localStorage.getItem('savedMovies')) || [];
-    const isMovieSaved = savedMovies.some(
-      (savedMovie) => savedMovie.movieId === movie.id
-    );
-    setIsLiked(isMovieSaved);
-    console.log(savedMovies);
+    setIsLiked('movieId' in movie);
   }, [movie]);
 
   // Изменим имя функции на formatMovieDuration
@@ -51,22 +46,16 @@ const MovieCard = ({ movie, isSavedPage, updateMovieLikedStatus }) => {
         .catch((error) => {
           console.error('Ошибка при удалении фильма:', error);
         });
-
     } else {
       // Если карточка не добавлена, то выполняем сохранение
       MainApi.createMovie(movieState)
         .then((newMovie) => {
-          console.log(newMovie);
           setMovieState(newMovie);
           setIsLiked(true);
           const savedMovies =
             JSON.parse(localStorage.getItem('savedMovies')) || [];
           savedMovies.push(newMovie);
-          console.log(savedMovies);
           localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-          if (updateMovieLikedStatus) {
-            updateMovieLikedStatus(newMovie._id, true);
-          }
         })
         .catch((error) => {
           console.error('Ошибка при сохранении фильма:', error);

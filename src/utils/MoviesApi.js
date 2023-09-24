@@ -12,15 +12,17 @@ class MoviesApi {
   }
 
   getMovies() {
-    return fetch(this._url, { 
+    return fetch(this._url, {
+      // Замените _baseUrl на _url
       headers: this._headers,
-    }).then((res) => this._checkResponse(res)); 
+    }).then((res) => this._checkResponse(res)); // Замените _checkServerResponse на _checkResponse
   }
 }
 
 const apiMovie = new MoviesApi({
   url: 'https://api.nomoreparties.co/beatfilm-movies',
   headers: {
+    // authorization: `Bearer ${localStorage.getItem('JWT')}`,
     'Content-Type': 'application/json',
   },
 });

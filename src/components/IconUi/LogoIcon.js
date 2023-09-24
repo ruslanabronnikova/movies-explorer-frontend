@@ -7,7 +7,7 @@ const LogoIcon = () => {
       width="38"
       height="38"
       viewBox="0 0 38 38"
-      fillRule="none"
+      fill="none"
     >
       <path
         fillRule="evenodd"

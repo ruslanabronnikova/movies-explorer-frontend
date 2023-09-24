@@ -1,7 +1,7 @@
 class MainApi {
   constructor(options) {
     this._url = options.url;
-    this._headers = options.headers
+    this._headers = options.headers;
   }
 
   _checkResponse(res) {
@@ -18,23 +18,21 @@ class MainApi {
         ...this._headers,
         authorization: `Bearer ${localStorage.getItem('JWT')}`,
       },
-    })
-      .then(this._checkResponse)
+    }).then(this._checkResponse);
   }
 
   updateUser({ name, email }) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
-      body: JSON.stringify({
-        name,
-        email
-      }),
       headers: {
         ...this._headers,
         authorization: `Bearer ${localStorage.getItem('JWT')}`,
       },
-    })
-      .then(this._checkResponse)
+      body: JSON.stringify({
+        name,
+        email,
+      }),
+    }).then(this._checkResponse);
   }
 
   getMovies() {
@@ -44,55 +42,53 @@ class MainApi {
         ...this._headers,
         authorization: `Bearer ${localStorage.getItem('JWT')}`,
       },
-    })
-      .then(this._checkResponse)
+    }).then(this._checkResponse);
   }
 
   createMovie(movieData) {
-    console.log(movieData)
     return fetch(`${this._url}/movies`, {
       method: 'POST',
+      headers: {
+        ...this._headers,
+        authorization: `Bearer ${localStorage.getItem('JWT')}`,
+      },
       body: JSON.stringify({
         country: movieData.country,
         director: movieData.director,
         duration: movieData.duration,
         year: movieData.year,
         description: movieData.description,
-        image: `${"https://api.nomoreparties.co"}${movieData.image.url}`,
+        image: movieData.image.url
+          ? `https://api.nomoreparties.co${movieData.image.url}`
+          : movieData.image,
         trailerLink: movieData.trailerLink,
-        thumbnail: `${"https://api.nomoreparties.co"}${movieData.image.formats.thumbnail.url}`,
-        movieId: movieData.id,
+        thumbnail: movieData.image.formats
+          ? `https://api.nomoreparties.co${movieData.image.formats.thumbnail.url}`
+          : movieData.image,
+        movieId: movieData.id || movieData.movieId,
         nameRU: movieData.nameRU || movieData.nameEN,
         nameEN: movieData.nameEN || movieData.nameRU,
       }),
-      headers: {
-        ...this._headers,
-        authorization: `Bearer ${localStorage.getItem('JWT')}`,
-      },
-    })
-      .then(this._checkResponse)
+    }).then(this._checkResponse);
   }
 
-
   deleteMovieId(movieId) {
-    console.log('id movie del', movieId)
     return fetch(`${this._url}/movies/${movieId}`, {
       method: 'DELETE',
       headers: {
         ...this._headers,
         authorization: `Bearer ${localStorage.getItem('JWT')}`,
       },
-    })
-      .then(this._checkResponse)
+    }).then(this._checkResponse);
   }
 }
 
 const api = new MainApi({
-  // url: 'https://api.diplombron.nomoreparties.co',
-  url: 'http://localhost:3000',
+  url: 'https://api.diplombron.nomoreparties.co',
+  // url: 'http://localhost:3001',
   headers: {
     'Content-Type': 'application/json',
-  }
-})
+  },
+});
 
 export default api;

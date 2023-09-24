@@ -7,7 +7,7 @@ const BtnOpenMenu = () => {
       width="44"
       height="44"
       viewBox="0 0 44 44"
-      fillRule="none"
+      fill="none"
     >
       <path
         fillRule="evenodd"

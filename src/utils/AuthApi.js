@@ -1,6 +1,6 @@
-// export const BASE_URL = 'https://api.diplombron.nomoreparties.co';
+export const BASE_URL = 'https://api.diplombron.nomoreparties.co';
 
-export const BASE_URL = 'http://localhost:3000';
+// export const BASE_URL = 'http://localhost:3001';
 
 export const handleResponse = (res) => {
   if (res.ok) {
@@ -14,24 +14,22 @@ export const register = (name, email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ name, email, password }),
-  })
-    .then(handleResponse);
+  }).then(handleResponse);
 };
 
 export const login = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
-  })
-    .then(handleResponse)
+  }).then(handleResponse);
 };
 
 export const getContent = (token) => {
@@ -39,8 +37,7 @@ export const getContent = (token) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
-  })
-    .then(handleResponse);
+  }).then(handleResponse);
 };
