@@ -11,15 +11,18 @@ const MoviesCardList = ({
 }) => {
   const [cardsCount, setCardsCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const cardsToAddOnClick = 3;
   const [savedMovies, setSavedMovies] = useState([]);
 
   const updateCardsCount = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth >= 1280) {
       setCardsCount(12);
+    } else if (screenWidth >= 969) {
+      setCardsCount(9);
     } else if (screenWidth >= 768) {
       setCardsCount(8);
+    } else if (screenWidth >= 569) {
+      setCardsCount(6);
     } else {
       setCardsCount(5);
     }
@@ -40,20 +43,20 @@ const MoviesCardList = ({
     setSavedMovies(savedMoviesData);
   }, []);
 
+  const getAdditionalCount = (screenWidth) => {
+    if (screenWidth >= 969) {
+      return 3;
+    }
+
+    return 2;
+  };
+
   const handleLoadMoreClick = () => {
     setIsLoading(true);
     setTimeout(() => {
-      let nextVisibleCount;
-      const screenWidth = window.innerWidth;
-  
-      if (screenWidth >= 1280) {
-        nextVisibleCount = cardsCount + 3;
-      } else if (screenWidth >= 768) {
-        nextVisibleCount = cardsCount + 2;
-      } else {
-        nextVisibleCount = cardsCount + 2;
-      }
-  
+      const screenWidth = document.documentElement.clientWidth;
+      const nextVisibleCount = cardsCount + getAdditionalCount(screenWidth);
+
       setCardsCount(nextVisibleCount);
       setIsLoading(false);
     }, 1000);
