@@ -48,7 +48,7 @@ const Login = (props) => {
     }
 
     setFormErrors(errors);
-    setIsValid(Object.values(errors).every((error) => error === ""));
+    setIsValid(Object.values(errors).every((error) => error === "") && Object.values(formValue).every((value) => !!value));
   };
 
   const handleSubmit = (e) => {

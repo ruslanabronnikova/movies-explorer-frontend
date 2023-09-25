@@ -34,7 +34,6 @@ const App = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-
   const [currentUser, setCurrentUser] = useState({
     name: '', // Имя пользователя
     email: '', // Email пользователя
@@ -74,9 +73,10 @@ const App = () => {
             navigate('/movies');
           }
         })
-        .catch(() => {
+        .catch((error) => {
           setInfoPopupCheck(false);
           setInfoPopupCheckOpen(true);
+          console.error('Произошла ошибка при регистрации', error)
         })
         .finally(() => {
           setIsLoading(false);
@@ -95,10 +95,10 @@ const App = () => {
           navigate('/movies');
         }
       })
-      .catch((err) => {
+      .catch((error) => {
         setInfoPopupCheck(false);
         setInfoPopupCheckOpen(true);
-        console.log(err)
+        console.error('Произошла ошибка при входе', error);
       })
       .finally(() => {
         setIsSubmitting(false); // Устанавливаем состояние отправки в false после завершения запроса
@@ -116,8 +116,8 @@ const App = () => {
             setIsLoggedIn(true);
           }
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          console.error('Произошла ошибка при проверке токена', error);
         })
         .finally(() => {
           setIsLoading(false);

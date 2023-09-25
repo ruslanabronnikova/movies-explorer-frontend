@@ -24,7 +24,7 @@ const Profile = ({ handleLogout }) => {
   const [originalName, setOriginalName] = useState(currentUser.name)
   const [originalEmail, setOriginalEmail] = useState(currentUser.email)
  
-  const [isValid, setIsValid] = useState(true);
+  const [isValid, setIsValid] = useState(false);
   const navigate = useNavigate();
 
   const loadUserInfo = () => {
@@ -54,7 +54,7 @@ const Profile = ({ handleLogout }) => {
   
 
   const handleSaveClick = () => {
-    setIsSaving(true);
+    setIsSaving(false);
   
     validateField("name", name);
     validateField("email", email);
@@ -79,6 +79,7 @@ const Profile = ({ handleLogout }) => {
           setIsSaving(false);
         });
     } else {
+      setIsValid(false);
       setIsSaving(false);
     }
   };
@@ -109,7 +110,7 @@ const Profile = ({ handleLogout }) => {
     }
 
     setFormErrors(errors);
-    setIsValid(Object.values(errors).every((error) => error === ""));
+    setIsValid(Object.values(errors).every((error) => error === "") && Object.values(isValid).every((value) => !!value));
   };
 
   const isValidEmail = (email) => {
