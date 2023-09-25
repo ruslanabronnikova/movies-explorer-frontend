@@ -10,7 +10,7 @@ import {
 //Все роуты
 import Main from '../Main/Main';
 import SavedMovies from '../SavedMovies/SavedMovies';
-import MoviesCards from '../MoviesCardList/MoviesCards';
+import MoviesCards from '../MoviesCards/MoviesCards';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFoundMistake/NotFound';
 import Preloader from '../Preloader/Preloader';
@@ -95,9 +95,10 @@ const App = () => {
           navigate('/movies');
         }
       })
-      .catch(() => {
+      .catch((err) => {
         setInfoPopupCheck(false);
         setInfoPopupCheckOpen(true);
+        console.log(err)
       })
       .finally(() => {
         setIsSubmitting(false); // Устанавливаем состояние отправки в false после завершения запроса

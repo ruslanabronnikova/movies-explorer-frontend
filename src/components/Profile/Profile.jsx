@@ -21,6 +21,9 @@ const Profile = ({ handleLogout }) => {
     email: "",
   });
 
+  const [originalName, setOriginalName] = useState(currentUser.name)
+  const [originalEmail, setOriginalEmail] = useState(currentUser.email)
+ 
   const [isValid, setIsValid] = useState(true);
   const navigate = useNavigate();
 
@@ -45,22 +48,27 @@ const Profile = ({ handleLogout }) => {
 
   const handleEditClick = () => {
     setIsEditing(true);
+    setOriginalName(name); // Сохраняем текущее имя как исходное
+    setOriginalEmail(email); // Сохраняем текущий email как исходный
   };
+  
 
   const handleSaveClick = () => {
     setIsSaving(true);
-
+  
     validateField("name", name);
     validateField("email", email);
-
-    if (isValid) {
+  
+    // Сравниваем текущие значения с исходными значениями
+    if (isValid && (name !== originalName || email !== originalEmail)) {
+      // Отправляем данные только если они были изменены
       api.updateUser({ name, email })
         .then((updatedUser) => {
           setName(updatedUser.name);
           setEmail(updatedUser.email);
           setIsEditing(false);
-          setSuccessMessage("Данные успешно сохранены!"); 
-          setTimeout(() => setSuccessMessage(""), 3000); 
+          setSuccessMessage("Данные успешно сохранены!");
+          setTimeout(() => setSuccessMessage(""), 3000);
         })
         .catch((error) => {
           console.error('Ошибка при обновлении данных пользователя:', error);
@@ -74,7 +82,7 @@ const Profile = ({ handleLogout }) => {
       setIsSaving(false);
     }
   };
-
+  
   const validateField = (name, value) => {
     let errors = { ...formErrors };
     switch (name) {
