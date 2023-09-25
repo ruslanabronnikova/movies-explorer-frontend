@@ -30,6 +30,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('JWT'));
   const [allMovies, setAllMovies] = useState([]);
+  const [isSavedReceived, setIsSavedReceived] = useState(false); 
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -124,9 +125,17 @@ const App = () => {
   }
 
   function getSavedMovies() {
-    let savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-    if (!savedMovies) {
-      return api.getMovies();
+    let savedMovies = JSON.parse(localStorage.getItem('savedMovies')) || [];
+    if (!savedMovies && !isSavedReceived) {
+      api
+        .getMovies()
+        .then((data) => {
+          setIsSavedReceived(true);
+          savedMovies = data;
+        })
+        .catch((error) => {
+          console.error('Ошибка при получении фильмов:', error);
+        });
     }
     return Promise.resolve(savedMovies);
   }
@@ -134,10 +143,15 @@ const App = () => {
   function getAllMovies() {
     let movies = allMovies;
     if (allMovies.length === 0) {
-      apiMovie.getMovies().then((data) => {
-        movies = data;
-        setAllMovies(data);
-      });
+      apiMovie
+        .getMovies()
+        .then((data) => {
+          movies = data;
+          setAllMovies(data);
+        })
+        .catch((error) => {
+          console.error('Ошибка при получении фильмов:', error);
+        });
     }
     return Promise.resolve(movies);
   }
@@ -194,7 +208,7 @@ const App = () => {
             <Route
               path="/saved-movies"
               element={
-                <ProtectedRoute element={SavedMovies} isLoggedIn={isLoggedIn} />
+                <ProtectedRoute element={SavedMovies} isLoggedIn={isLoggedIn} getSavedMovies={getSavedMovies} />
               }
             />
             <Route

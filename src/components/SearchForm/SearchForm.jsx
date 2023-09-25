@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SearchForm.css";
 import BtnSearchIcon from "../IconUi/BtnSearchIcon";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-const SearchForm = ({ onSearch, setIsShortFilterActive }) => {
+const SearchForm = ({ onSearch, setIsShortFilterActive, searchString, isShortFilterActive }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchQueryError, setSearchQueryError] = useState(""); // Добавляем состояние для ошибки
-  const [searchResults, setSearchResults] = useState([]); // Добавляем состояние для вывода сообщени о нулевом поиске 
 
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -21,6 +20,10 @@ const SearchForm = ({ onSearch, setIsShortFilterActive }) => {
       onSearch(searchQuery);
     }
   };
+
+  useEffect(() => {
+    setSearchQuery(searchString)
+  }, [searchString])
 
   return (
     <section className={"search"}>
@@ -43,7 +46,7 @@ const SearchForm = ({ onSearch, setIsShortFilterActive }) => {
           <span className="search__error">{searchQueryError}</span>
         )} 
         <div className={"search__filter"}>
-          <FilterCheckbox setIsShortFilterActive={setIsShortFilterActive} />
+          <FilterCheckbox setIsShortFilterActive={setIsShortFilterActive} isChecked={isShortFilterActive} />
         </div>
       </form>
     </section>
