@@ -120,8 +120,8 @@ const Login = (props) => {
             <button
               type={"submit"}
               id={"log"}
-              className={`log__button-signin ${isValid ? "" : "log__button-form_disabled"}`}
-              disabled={!isValid}
+              className={`log__button-signin ${isValid || props.isSubmitting ? "" : "log__button-form_disabled"}`}
+              disabled={!isValid || props.isSubmitting}
             >
               Войти
             </button>

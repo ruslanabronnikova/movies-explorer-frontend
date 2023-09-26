@@ -148,8 +148,8 @@ const validateField = (name, value) => {
             <button
               type="submit"
               id="log"
-              className={`log__button-form ${isValid ? "" : "log__button-form_disabled"}`}
-              disabled={!isValid}
+              className={`log__button-form ${isValid || props.isSubmitting ? "" : "log__button-form_disabled"}`}
+              disabled={!isValid || props.isSubmitting}
             >
               Зарегистрироваться
             </button>

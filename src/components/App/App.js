@@ -30,7 +30,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('JWT'));
   const [allMovies, setAllMovies] = useState([]);
-  const [isSavedReceived, setIsSavedReceived] = useState(false); 
+  const [isSavedReceived, setIsSavedReceived] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -57,34 +57,31 @@ const App = () => {
   }
 
   function handleReg({ name, email, password }) {
-    debugger
-    auth.register(name, email, password).then((data) => {
-      localStorage.setItem('isLoggedIn', 'true');
-      setIsLoggedIn(true);
-      // Обновите данные о текущем пользователе и передайте их через контекст
-      updateCurrentUser(data);
-      // После регистрации выполните авторизацию
-      auth
-        .login(email, password)
-        .then((loginData) => {
-          if (loginData.JWT) {
-            localStorage.setItem('JWT', loginData.JWT);
-            setIsLoggedIn(true);
-            navigate('/movies');
-          }
-        })
-        .catch((error) => {
-          setInfoPopupCheck(false);
-          setInfoPopupCheckOpen(true);
-          console.error('Произошла ошибка при регистрации', error)
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    });
+    setIsSubmitting(true);
+
+    auth.register(name, email, password)
+      .then((data) => {
+        localStorage.setItem('isLoggedIn', 'true');
+        setIsLoggedIn(true);
+        // Обновите данные о текущем пользователе и передайте их через контекст
+        updateCurrentUser(data);
+
+        // После регистрации выполните авторизацию
+        handleLog({ email, password })
+      })
+      .catch((error) => {
+        setInfoPopupCheck(false);
+        setInfoPopupCheckOpen(true);
+        console.error('Произошла ошибка при регистрации', error);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+        setIsLoading(false);
+      });
   }
 
   function handleLog({ email, password }) {
+    setIsSubmitting(true);
     auth
       .login(email, password)
       .then((data) => {
@@ -101,7 +98,7 @@ const App = () => {
         console.error('Произошла ошибка при входе', error);
       })
       .finally(() => {
-        setIsSubmitting(false); // Устанавливаем состояние отправки в false после завершения запроса
+        setIsSubmitting(false);
         setIsLoading(false);
       });
   }
@@ -190,8 +187,8 @@ const App = () => {
               </>
             ) : (
               <>
-                <Route path="/signin" element={<Login onLog={handleLog} />} />
-                <Route path="/signup" element={<Register onReg={handleReg} />} />
+                <Route path="/signin" element={<Login onLog={handleLog} isSubmitting={isSubmitting} />} />
+                <Route path="/signup" element={<Register onReg={handleReg} isSubmitting={isSubmitting} />} />
               </>
             )}
 

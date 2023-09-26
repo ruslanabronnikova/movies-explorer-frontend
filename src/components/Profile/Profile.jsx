@@ -23,9 +23,8 @@ const Profile = ({ handleLogout }) => {
 
   const [originalName, setOriginalName] = useState(currentUser.name)
   const [originalEmail, setOriginalEmail] = useState(currentUser.email)
- 
+
   const [isValid, setIsValid] = useState(false);
-  const navigate = useNavigate();
 
   const loadUserInfo = () => {
     setIsSaving(true);
@@ -47,43 +46,44 @@ const Profile = ({ handleLogout }) => {
   }, []);
 
   const handleEditClick = () => {
-    setIsEditing(true);
-    setOriginalName(name); // Сохраняем текущее имя как исходное
-    setOriginalEmail(email); // Сохраняем текущий email как исходный
-  };
-  
-
-  const handleSaveClick = () => {
-    setIsSaving(false);
-  
-    validateField("name", name);
-    validateField("email", email);
-  
-    // Сравниваем текущие значения с исходными значениями
-    if (isValid && (name !== originalName || email !== originalEmail)) {
-      // Отправляем данные только если они были изменены
-      api.updateUser({ name, email })
-        .then((updatedUser) => {
-          setName(updatedUser.name);
-          setEmail(updatedUser.email);
-          setIsEditing(false);
-          setSuccessMessage("Данные успешно сохранены!");
-          setTimeout(() => setSuccessMessage(""), 3000);
-        })
-        .catch((error) => {
-          console.error('Ошибка при обновлении данных пользователя:', error);
-          setUnSuccessMessage("При обновлении профиля произошла ошибка.")
-          setTimeout(() => setUnSuccessMessage(""), 3000);
-        })
-        .finally(() => {
-          setIsSaving(false);
-        });
-    } else {
-      setIsValid(false);
-      setIsSaving(false);
+    if (!isSaving) {
+      setIsEditing(true);
+      setOriginalName(name);
+      setOriginalEmail(email);
     }
   };
-  
+
+  const handleSaveClick = () => {
+    if (!isSaving) {
+      setIsSaving(true);
+
+      validateField("name", name);
+      validateField("email", email);
+
+      if (isValid && (name !== originalName || email !== originalEmail)) {
+        api.updateUser({ name, email })
+          .then((updatedUser) => {
+            setName(updatedUser.name);
+            setEmail(updatedUser.email);
+            setIsEditing(false);
+            setSuccessMessage("Данные успешно сохранены!");
+            setTimeout(() => setSuccessMessage(""), 3000);
+          })
+          .catch((error) => {
+            console.error('Ошибка при обновлении данных пользователя:', error);
+            setUnSuccessMessage("При обновлении профиля произошла ошибка.");
+            setTimeout(() => setUnSuccessMessage(""), 3000);
+          })
+          .finally(() => {
+            setIsSaving(false);
+          });
+      } else {
+        setIsValid(false);
+        setIsSaving(false);
+      }
+    }
+  };
+
   const validateField = (name, value) => {
     let errors = { ...formErrors };
     switch (name) {
