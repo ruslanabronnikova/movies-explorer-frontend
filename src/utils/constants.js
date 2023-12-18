@@ -20,105 +20,6 @@ export const works = [
   },
 ];
 
-const moviesData = [
-  {
-    title: "33 слова о дизайне",
-    duration: "1ч 17м",
-    imageUrl: imageCard1,
-    isSaved: false,
-  },
-  {
-    title: "Киноальманах «100 лет дизайна»",
-    duration: "1ч 17м",
-    imageUrl: imageCard2,
-    isSaved: true,
-  },
-  {
-    title: "В погоне за Бенкси",
-    duration: "1ч 17м",
-    imageUrl: imageCard3,
-    isSaved: false,
-  },
-  {
-    title: "33 слова о дизайне",
-    duration: "1ч 17м",
-    imageUrl: imageCard1,
-    isSaved: false,
-  },
-  {
-    title: "Киноальманах «100 лет дизайна»",
-    duration: "1ч 17м",
-    imageUrl: imageCard2,
-    isSaved: true,
-  },
-  {
-    title: "В погоне за Бенкси",
-    duration: "1ч 17м",
-    imageUrl: imageCard3,
-    isSaved: false,
-  },
-  {
-    title: "33 слова о дизайне",
-    duration: "1ч 17м",
-    imageUrl: imageCard1,
-    isSaved: false,
-  },
-  {
-    title: "Киноальманах «100 лет дизайна»",
-    duration: "1ч 17м",
-    imageUrl: imageCard2,
-    isSaved: true,
-  },
-  {
-    title: "В погоне за Бенкси",
-    duration: "1ч 17м",
-    imageUrl: imageCard3,
-    isSaved: false,
-  },
-  {
-    title: "33 слова о дизайне",
-    duration: "1ч 17м",
-    imageUrl: imageCard1,
-    isSaved: false,
-  },
-  {
-    title: "Киноальманах «100 лет дизайна»",
-    duration: "1ч 17м",
-    imageUrl: imageCard2,
-    isSaved: true,
-  },
-  {
-    title: "В погоне за Бенкси",
-    duration: "1ч 17м",
-    imageUrl: imageCard3,
-    isSaved: false,
-  },
-  {
-    title: "33 слова о дизайне",
-    duration: "1ч 17м",
-    imageUrl: imageCard1,
-    isSaved: false,
-  },
-  {
-    title: "Киноальманах «100 лет дизайна»",
-    duration: "1ч 17м",
-    imageUrl: imageCard2,
-    isSaved: true,
-  },
-  {
-    title: "В погоне за Бенкси",
-    duration: "1ч 17м",
-    imageUrl: imageCard3,
-    isSaved: false,
-  },
-  {
-    title: "33 слова о дизайне",
-    duration: "1ч 17м",
-    imageUrl: imageCard1,
-    isSaved: false,
-  },
-];
-
 const saveMoviesData = [
   {
     title: "33 слова о дизайне",
@@ -140,4 +41,4 @@ const saveMoviesData = [
   },
 ]
 
-export const data = {moviesData, saveMoviesData}
+export const data = {saveMoviesData}

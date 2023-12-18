@@ -13,7 +13,7 @@ const SaveIcon = () => {
       <path
         d="M6.5 10.35L9.31905 12.6L14.5 8.09998"
         stroke="white"
-        stroke-width="1.3"
+        strokeWidth="1.3"
       />
     </svg>
   );

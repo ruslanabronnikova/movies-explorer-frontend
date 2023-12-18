@@ -2,6 +2,15 @@
   padding: 80px 70px 0px 70px;
 }
 
+.movies-card-list__search-nothing {
+  margin: 0;
+  padding: 80px 70px 0px 70px;
+  font-size: 25px;
+  text-align: center;
+  color: #fff;
+  opacity: 0.5;
+}
+
 .movie-card-container__load-more {
   margin-top: 28px;
   padding-top: 50px;
@@ -61,6 +70,12 @@
   .movies-card-list {
     padding: 48px 10px 0px 10px;
   }
+
+  .movies-card-list__search-nothing {
+    padding: 48px 10px 0px 10px;
+    font-size: 16px;
+  }
+  
 
   .movie-card-container__load-more {
     padding-top: 35px;
